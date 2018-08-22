@@ -91,7 +91,7 @@ public class ArrayStorageWithInterface {
 
     }
     public static void get() {
-        System.out.println("Enter an index to add");
+        System.out.println("Enter an index to get");
         String indexLine;
         boolean isGetFunctionRunning = true;
 
