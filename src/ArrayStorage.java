@@ -6,7 +6,6 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     int size = 0;
-    int searchingIndex = 0;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -14,25 +13,29 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (!isFound(r.uuid) && size < storage.length && r.uuid != null) {
-            storage[size] = r;
-            size++;
+        if (isFound(r.uuid) == -1) {
+            if (size < storage.length) {
+                storage[size] = r;
+                size++;
+            } else {
+                System.out.println("Storage is overflowed");
+            }
         } else {
-            System.out.println("Resume isn't unique, or storage is overflowed, or uuid = null");
+            System.out.println("Resume isn't unique");
         }
     }
 
     void update(Resume r) {
-        if (isFound(r.uuid)) {
-            storage[searchingIndex].uuid = r.uuid;
+        if (isFound(r.uuid) != -1) {
+            storage[isFound(r.uuid)] = r;
         } else {
             System.out.println("Resume doesn't exist");
         }
     }
 
     Resume get(String uuid) {
-        if (isFound(uuid)) {
-            return storage[searchingIndex];
+        if (isFound(uuid) != -1) {
+            return storage[isFound(uuid)];
         } else {
             System.out.println("Resume doesn't exist");
         }
@@ -40,21 +43,20 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        if (isFound(uuid)) {
-            storage[searchingIndex] = storage[searchingIndex + 1];
-            storage[searchingIndex + 1] = null;
+        if (isFound(uuid) != -1) {
+            storage[isFound(uuid)] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         } else {
             System.out.println("Resume doesn't exist");
         }
     }
 
-    boolean isFound(String uuid) {
-        boolean isFound = false;
+    int isFound(String uuid) {
+        int isFound = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                isFound = true;
-                searchingIndex = i;
+                isFound = i;
             }
         }
         return isFound;
