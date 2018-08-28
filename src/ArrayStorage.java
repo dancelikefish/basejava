@@ -26,7 +26,8 @@ public class ArrayStorage {
     }
 
     void update(Resume r) {
-        if (isFound(r.uuid) != -1) {
+        int localIsFound = isFound(r.uuid);
+        if (localIsFound != -1) {
             storage[isFound(r.uuid)] = r;
         } else {
             System.out.println("Resume doesn't exist");
@@ -34,7 +35,8 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if (isFound(uuid) != -1) {
+        int localIsFound = isFound(uuid);
+        if (localIsFound != -1) {
             return storage[isFound(uuid)];
         } else {
             System.out.println("Resume doesn't exist");
@@ -43,7 +45,8 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        if (isFound(uuid) != -1) {
+        int localIsFound = isFound(uuid);
+        if (localIsFound != -1) {
             storage[isFound(uuid)] = storage[size - 1];
             storage[size - 1] = null;
             size--;
