@@ -13,7 +13,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (isFound(r.uuid) == -1) {
+        if (getFoundIndex(r.uuid) == -1) {
             if (size < storage.length) {
                 storage[size] = r;
                 size++;
@@ -26,18 +26,18 @@ public class ArrayStorage {
     }
 
     void update(Resume r) {
-        int localIsFound = isFound(r.uuid);
+        int localIsFound = getFoundIndex(r.uuid);
         if (localIsFound != -1) {
-            storage[isFound(r.uuid)] = r;
+            storage[localIsFound] = r;
         } else {
             System.out.println("Resume doesn't exist");
         }
     }
 
     Resume get(String uuid) {
-        int localIsFound = isFound(uuid);
+        int localIsFound = getFoundIndex(uuid);
         if (localIsFound != -1) {
-            return storage[isFound(uuid)];
+            return storage[localIsFound];
         } else {
             System.out.println("Resume doesn't exist");
         }
@@ -45,9 +45,9 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int localIsFound = isFound(uuid);
+        int localIsFound = getFoundIndex(uuid);
         if (localIsFound != -1) {
-            storage[isFound(uuid)] = storage[size - 1];
+            storage[localIsFound] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
@@ -55,14 +55,14 @@ public class ArrayStorage {
         }
     }
 
-    int isFound(String uuid) {
-        int isFound = -1;
+    private int getFoundIndex(String uuid) {
+        int getIndex = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                isFound = i;
+                getIndex = i;
             }
         }
-        return isFound;
+        return getIndex;
     }
 
     /**
