@@ -1,4 +1,4 @@
-package javaOps.model;
+package javaOps.webapp.model;
 
 import java.util.Objects;
 

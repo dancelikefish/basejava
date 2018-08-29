@@ -1,10 +1,10 @@
-package javaOps;
+package javaOps.webapp;
 
-import javaOps.model.Resume;
-import javaOps.storage.ArrayStorage;
+import javaOps.webapp.model.Resume;
+import javaOps.webapp.storage.ArrayStorage;
 
 /**
- * Test for your javaOps.storage.ArrayStorage implementation
+ * Test for your javaOps.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

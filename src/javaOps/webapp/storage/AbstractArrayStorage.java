@@ -1,6 +1,6 @@
-package javaOps.storage;
+package javaOps.webapp.storage;
 
-import javaOps.model.Resume;
+import javaOps.webapp.model.Resume;
 
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
