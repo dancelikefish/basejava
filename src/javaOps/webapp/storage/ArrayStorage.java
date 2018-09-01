@@ -2,17 +2,10 @@ package javaOps.webapp.storage;
 
 import javaOps.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based javaOps.webapp.storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
-
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
 
     public void save(Resume r) {
         if (getFoundIndex(r.getUuid()) == -1) {
@@ -60,7 +53,5 @@ public class ArrayStorage extends AbstractArrayStorage {
     /**
      * @return array, contains only Resumes in javaOps.webapp.storage (without null)
      */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
+
 }
