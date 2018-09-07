@@ -23,12 +23,22 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void update(Resume r) {
-
+        int binaryValue = getFoundIndex(r.getUuid());
+        if (binaryValue >= 0) {
+            storage[binaryValue] = r;
+        } else {
+            System.out.println("Resume " + r.getUuid() + " doesn't exist");
+        }
     }
 
     @Override
     public void delete(String uuid) {
-
+        int binaryValue = getFoundIndex(uuid);
+        if (binaryValue >= 0) {
+            System.arraycopy(storage, binaryValue + 1, storage, binaryValue, size);
+            size--;
+        } else
+            System.out.println("Resume " + uuid + " doesn't exist");
     }
 
     @Override
