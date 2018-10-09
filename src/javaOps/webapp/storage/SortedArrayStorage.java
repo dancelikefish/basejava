@@ -11,7 +11,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         if (size == STORAGE_LIMIT) {
             System.out.println("Storage is overflowed");
         }
-        int binaryValue = getFoundIndex(r.getUuid());
+        int binaryValue = getIndex(r.getUuid());
         if (binaryValue < 0) {
             binaryValue = -binaryValue - 1;
             System.arraycopy(storage, binaryValue, storage, binaryValue + 1, size - binaryValue);
@@ -23,7 +23,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void update(Resume r) {
-        int binaryValue = getFoundIndex(r.getUuid());
+        int binaryValue = getIndex(r.getUuid());
         if (binaryValue >= 0) {
             storage[binaryValue] = r;
         } else {
@@ -33,7 +33,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void delete(String uuid) {
-        int binaryValue = getFoundIndex(uuid);
+        int binaryValue = getIndex(uuid);
         if (binaryValue >= 0) {
             System.arraycopy(storage, binaryValue + 1, storage, binaryValue, size);
             size--;
@@ -42,7 +42,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected int getFoundIndex(String uuid) {
+    protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);

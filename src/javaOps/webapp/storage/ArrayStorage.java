@@ -8,7 +8,7 @@ import javaOps.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     public void save(Resume r) {
-        if (getFoundIndex(r.getUuid()) == -1) {
+        if (getIndex(r.getUuid()) == -1) {
             if (size < storage.length) {
                 storage[size] = r;
                 size++;
@@ -21,7 +21,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     public void update(Resume r) {
-        int index = getFoundIndex(r.getUuid());
+        int index = getIndex(r.getUuid());
         if (index != -1) {
             storage[index] = r;
         } else {
@@ -30,7 +30,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     public void delete(String uuid) {
-        int index = getFoundIndex(uuid);
+        int index = getIndex(uuid);
         if (index != -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
@@ -40,7 +40,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    protected int getFoundIndex(String uuid) {
+    protected int getIndex(String uuid) {
         int getIndex = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
