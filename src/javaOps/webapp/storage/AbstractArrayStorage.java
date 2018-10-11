@@ -1,11 +1,14 @@
 package javaOps.webapp.storage;
 
+import javaOps.webapp.exception.ExistStorageException;
+import javaOps.webapp.exception.NotExistStorageException;
+import javaOps.webapp.exception.StorageException;
 import javaOps.webapp.model.Resume;
 
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 4;
+    protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
@@ -16,14 +19,14 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume r) {
         if (size == STORAGE_LIMIT) {
-            System.out.println("Storage is overflowed");
+            throw new StorageException("Storage is overflowed", r.getUuid());
         } else {
             int index = getIndex(r.getUuid());
             if (index < 0) {
                 saveInArrays(r, index);
                 size++;
             } else
-                System.out.println("Resume " + r.getUuid() + " isn't unique");
+                throw new ExistStorageException(r.getUuid());
         }
     }
 
@@ -34,15 +37,14 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = r;
         } else {
-            System.out.println("Resume " + r.getUuid() + " doesn't exist");
+            throw new NotExistStorageException(r.getUuid());
         }
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume " + uuid + " doesn't exist");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -53,9 +55,10 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
         if (index >= 0) {
             deleteInArrays(index);
+            storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume " + uuid + " doesn't exist");
+            throw new NotExistStorageException(uuid);
         }
     }
 
