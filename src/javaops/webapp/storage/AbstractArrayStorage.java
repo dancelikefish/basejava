@@ -1,9 +1,9 @@
-package javaOps.webapp.storage;
+package javaops.webapp.storage;
 
-import javaOps.webapp.exception.ExistStorageException;
-import javaOps.webapp.exception.NotExistStorageException;
-import javaOps.webapp.exception.StorageException;
-import javaOps.webapp.model.Resume;
+import javaops.webapp.exception.ExistStorageException;
+import javaops.webapp.exception.NotExistStorageException;
+import javaops.webapp.exception.StorageException;
+import javaops.webapp.model.Resume;
 
 import java.util.Arrays;
 

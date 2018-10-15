@@ -1,4 +1,4 @@
-package javaOps.webapp.exception;
+package javaops.webapp.exception;
 
 public class ExistStorageException extends StorageException {
     public ExistStorageException(String uuid) {

@@ -1,15 +1,15 @@
-package javaOps.webapp;
+package javaops.webapp;
 
-import javaOps.webapp.model.Resume;
-import javaOps.webapp.storage.SortedArrayStorage;
-import javaOps.webapp.storage.Storage;
+import javaops.webapp.model.Resume;
+import javaops.webapp.storage.SortedArrayStorage;
+import javaops.webapp.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Interactive test for javaOps.webapp.storage.ArrayStorage implementation
+ * Interactive test for javaops.webapp.storage.ArrayStorage implementation
  * (just run, no need to understand)
  */
 public class MainArray {

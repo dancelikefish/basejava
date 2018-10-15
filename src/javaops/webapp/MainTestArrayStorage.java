@@ -1,11 +1,11 @@
-package javaOps.webapp;
+package javaops.webapp;
 
-import javaOps.webapp.model.Resume;
-import javaOps.webapp.storage.SortedArrayStorage;
-import javaOps.webapp.storage.Storage;
+import javaops.webapp.model.Resume;
+import javaops.webapp.storage.SortedArrayStorage;
+import javaops.webapp.storage.Storage;
 
 /**
- * Test for your javaOps.webapp.storage.ArrayStorage implementation
+ * Test for your javaops.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     private final static Storage ARRAY_STORAGE = new SortedArrayStorage();

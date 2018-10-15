@@ -1,4 +1,4 @@
-package javaOps.webapp;
+package javaops.webapp;
 
 public class MainString {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package javaOps.webapp.model;
+package javaops.webapp.model;
 
 import java.util.Objects;
 import java.util.UUID;

@@ -20,5 +20,5 @@
 - <a href="https://ru.wikipedia.org/wiki/Шаблонный_метод_(шаблон_проектирования)">Шаблонный метод</a>
 
 ## Домашнее задание
-- Закончить реализацию `AbstractArrayStorage`, `javaOps.webapp.storage.ArrayStorage`, `SortedArrayStorage` (`SortedArrayStorage` хранит элементы отсортированными, сортировать весь массив не надо).
-- Сделать проверку `javaOps.webapp.storage.ArrayStorage.update`
+- Закончить реализацию `AbstractArrayStorage`, `javaops.webapp.storage.ArrayStorage`, `SortedArrayStorage` (`SortedArrayStorage` хранит элементы отсортированными, сортировать весь массив не надо).
+- Сделать проверку `javaops.webapp.storage.ArrayStorage.update`

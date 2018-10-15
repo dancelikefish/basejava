@@ -1,9 +1,9 @@
-package javaOps.webapp.storage;
+package javaops.webapp.storage;
 
-import javaOps.webapp.model.Resume;
+import javaops.webapp.model.Resume;
 
 /**
- * Array based javaOps.webapp.storage for Resumes
+ * Array based javaops.webapp.storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
@@ -28,6 +28,6 @@ public class ArrayStorage extends AbstractArrayStorage {
 }
 
 /**
- * @return array, contains only Resumes in javaOps.webapp.storage (without null)
+ * @return array, contains only Resumes in javaops.webapp.storage (without null)
  */
 

@@ -1,6 +1,6 @@
-package javaOps.webapp.storage;
+package javaops.webapp.storage;
 
-import javaOps.webapp.model.Resume;
+import javaops.webapp.model.Resume;
 
 public interface Storage {
 
