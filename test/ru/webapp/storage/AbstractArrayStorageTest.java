@@ -9,13 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest {
-    Storage storage;
+    private Storage storage;
 
-    Resume r1 = new Resume("uuid1");
-    Resume r2 = new Resume("uuid2");
-    Resume r3 = new Resume("uuid3");
+    private static final Resume r1 = new Resume("uuid1");
+    private static final Resume r2 = new Resume("uuid2");
+    private static final Resume r3 = new Resume("uuid3");
 
-    Resume[] expectedResumes = {r1, r2, r3};
+    private static final Resume[] expectedResumes = {r1, r2, r3};
 
     @Before
     public void setUp() throws Exception {
