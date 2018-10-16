@@ -57,14 +57,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
-        storage.save(new Resume("uuid3"));
+        storage.save(r3);
     }
 
     @Test
     public void update() {
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
-        storage.update(new Resume("uuid1"));
+        storage.update(r1);
 
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
@@ -80,7 +80,7 @@ public abstract class AbstractArrayStorageTest {
     public void get() {
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
-        storage.get("uuid1");
+        storage.get(r1.getUuid());
 
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
@@ -96,7 +96,7 @@ public abstract class AbstractArrayStorageTest {
     public void deleteForAST() {
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
-        storage.delete("uuid1");
+        storage.delete(r1.getUuid());
 
         Resume[] expectedResumes2 = {new Resume("uuid3"), new Resume("uuid2")};
         Assert.assertArrayEquals(expectedResumes2, storage.getAll());
@@ -106,7 +106,7 @@ public abstract class AbstractArrayStorageTest {
     public void deleteForSAST() {
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
         Assert.assertEquals(3, storage.size());
-        storage.delete("uuid1");
+        storage.delete(r1.getUuid());
 
         Resume[] expectedResumes2 = {new Resume("uuid2"), new Resume("uuid3")};
         Assert.assertArrayEquals(expectedResumes2, storage.getAll());
