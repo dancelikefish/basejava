@@ -59,7 +59,7 @@ public abstract class AbstractArrayStorageTest {
     public void saveExist() {
         storage.save(new Resume("uuid3"));
     }
-
+//test
     @Test
     public void update() {
         Assert.assertArrayEquals(expectedResumes, storage.getAll());
