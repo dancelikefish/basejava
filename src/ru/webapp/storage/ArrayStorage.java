@@ -3,7 +3,7 @@ package ru.webapp.storage;
 import ru.webapp.model.Resume;
 
 /**
- * Array based javaops.webapp.storage for Resumes
+ * Array based ru.webapp.storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
@@ -28,6 +28,6 @@ public class ArrayStorage extends AbstractArrayStorage {
 }
 
 /**
- * @return array, contains only Resumes in javaops.webapp.storage (without null)
+ * @return array, contains only Resumes in ru.webapp.storage (without null)
  */
 
