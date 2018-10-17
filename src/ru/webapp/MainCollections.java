@@ -19,6 +19,7 @@ public class MainCollections {
         collection.add(r2);
         collection.add(r3);
 
+
         Iterator<Resume> iterator = collection.iterator();
 
         while (iterator.hasNext()) {
