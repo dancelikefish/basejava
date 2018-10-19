@@ -12,8 +12,9 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void clear() {
-
+        clearInCollections();
     }
+    protected abstract void clearInCollections();
 
     @Override
     public void save(Resume r) {
