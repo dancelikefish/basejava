@@ -24,8 +24,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[index];
     }
 
-    protected abstract int getIndex(String uuid);
-
     @Override
     public void deleteInStorage(String uuid, int index) {
         deleteInArrays(index);
