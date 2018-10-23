@@ -21,24 +21,21 @@ public class MapStorage extends AbstractStorage {
     public void update(Resume r) {
         if (resumeMap.containsKey(r.getUuid())) {
             resumeMap.replace(r.getUuid(), r, r);
-        }
-        else throw new NotExistStorageException(r.getUuid());
+        } else throw new NotExistStorageException(r.getUuid());
     }
 
     @Override
     public Resume get(String uuid) {
         if (resumeMap.containsKey(uuid)) {
             return resumeMap.get(uuid);
-        }
-        else throw new NotExistStorageException(uuid);
+        } else throw new NotExistStorageException(uuid);
     }
 
     @Override
     public void delete(String uuid) {
         if (resumeMap.containsKey(uuid)) {
             resumeMap.remove(uuid);
-        }
-        else throw new NotExistStorageException(uuid);
+        } else throw new NotExistStorageException(uuid);
     }
 
     @Override
