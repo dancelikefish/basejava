@@ -1,41 +1,45 @@
 package ru.webapp.storage;
 
 import ru.webapp.exception.ExistStorageException;
-import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 
 public class ListStorage extends AbstractStorage {
+
     @Override
     public void clear() {
         resumeList.clear();
     }
 
     @Override
-    public void save(Resume r) {
+    protected void saveInStorage(Resume r, int index) {
         if (resumeList.contains(r)) {
             throw new ExistStorageException(r.getUuid());
         } else resumeList.add(r);
     }
 
     @Override
-    public void update(Resume r) {
-        if (resumeList.contains(r)) {
-            resumeList.set(resumeList.indexOf(r), r);
-        } else throw new NotExistStorageException(r.getUuid());
+    protected void updateInStorage(Resume r, int index) {
+        resumeList.set(resumeList.indexOf(r), r);
     }
 
     @Override
-    public Resume get(String uuid) {
-        if (resumeList.contains(new Resume(uuid))) {
-            return resumeList.get(resumeList.indexOf(new Resume(uuid)));
-        } else throw new NotExistStorageException(uuid);
+    protected Resume getInStorage(String uuid, int index) {
+        return resumeList.get(index);
     }
 
     @Override
-    public void delete(String uuid) {
-        if (resumeList.contains(new Resume(uuid))) {
-            resumeList.remove(new Resume(uuid));
-        } else throw new NotExistStorageException(uuid);
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size(); i++) {
+            if (uuid.equals(resumeList.get(i).getUuid())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    protected void deleteInStorage(String uuid, int index) {
+        resumeList.remove(new Resume(uuid));
     }
 
     @Override
@@ -47,4 +51,5 @@ public class ListStorage extends AbstractStorage {
     public int size() {
         return resumeList.size();
     }
+
 }

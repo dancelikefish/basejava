@@ -1,41 +1,46 @@
 package ru.webapp.storage;
 
-import ru.webapp.exception.ExistStorageException;
-import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 
+import java.util.Map;
+
 public class MapStorage extends AbstractStorage {
+
     @Override
     public void clear() {
         resumeMap.entrySet().clear();
     }
 
     @Override
-    public void save(Resume r) {
-        if (resumeMap.containsKey(r.getUuid())) {
-            throw new ExistStorageException(r.getUuid());
-        } else resumeMap.put(r.getUuid(), r);
+    public void saveInStorage(Resume r, int index) {
+        resumeMap.put(r.getUuid(), r);
     }
 
     @Override
-    public void update(Resume r) {
-        if (resumeMap.containsKey(r.getUuid())) {
-            resumeMap.replace(r.getUuid(), r, r);
-        } else throw new NotExistStorageException(r.getUuid());
+    public void updateInStorage(Resume r, int index) {
+        resumeMap.replace(r.getUuid(), r, r);
     }
 
     @Override
-    public Resume get(String uuid) {
-        if (resumeMap.containsKey(uuid)) {
-            return resumeMap.get(uuid);
-        } else throw new NotExistStorageException(uuid);
+    protected Resume getInStorage(String uuid, int index) {
+        return resumeMap.get(uuid);
     }
 
     @Override
-    public void delete(String uuid) {
-        if (resumeMap.containsKey(uuid)) {
-            resumeMap.remove(uuid);
-        } else throw new NotExistStorageException(uuid);
+    protected int getIndex(String uuid) {
+        int index = 0;
+        for (Map.Entry<String, Resume> entry : resumeMap.entrySet()) {
+            index++;
+            if (entry.getKey().equals(uuid)) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void deleteInStorage(String uuid, int index) {
+        resumeMap.remove(uuid);
     }
 
     @Override
@@ -47,4 +52,5 @@ public class MapStorage extends AbstractStorage {
     public int size() {
         return resumeMap.size();
     }
+
 }

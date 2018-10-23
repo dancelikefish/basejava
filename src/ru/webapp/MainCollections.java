@@ -36,10 +36,12 @@ public class MainCollections {
         }
 
 
-        HashMap<String, Resume> map = new HashMap<>();
-        map.put("uuid1", r2);
+        HashMap<String, Resume> map = new LinkedHashMap<>();
+        map.put("uuid3", r2);
         map.put("uuid2", r1);
-        map.put("uuid1", r2);
+        map.put("uuid4", r2);
+        map.put("uuid10", r2);
+        map.put("asv", r2);
 
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());

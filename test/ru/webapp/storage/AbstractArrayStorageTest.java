@@ -66,7 +66,6 @@ public abstract class AbstractArrayStorageTest {
         } catch (StorageException e) {
             Assert.fail("Exception is thrown");
         }
-
         storage.save(new Resume("uuid10001"));
     }
 

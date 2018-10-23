@@ -1,8 +1,6 @@
 package ru.webapp.storage;
 
-import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -10,7 +8,6 @@ import java.util.Arrays;
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int size = 0;
 
     @Override
     public void clear() {
@@ -19,29 +16,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume r) {
-        if (size == STORAGE_LIMIT) {
-            throw new StorageException("Storage is overflowed", r.getUuid());
-        } else {
-            int index = getIndex(r.getUuid());
-            if (index < 0) {
-                saveInArrays(r, index);
-                size++;
-            } else
-                throw new ExistStorageException(r.getUuid());
-        }
-    }
-
-    protected abstract void saveInArrays(Resume r, int index);
-
-    @Override
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index >= 0) {
-            storage[index] = r;
-        } else {
-            throw new NotExistStorageException(r.getUuid());
-        }
+    public void updateInStorage(Resume r, int index) {
+        storage[index] = r;
     }
 
     @Override
@@ -49,22 +25,21 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         int index = getIndex(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-        }
+        } else return storage[index];
+    }
+
+    @Override
+    protected Resume getInStorage(String uuid, int index) {
         return storage[index];
     }
 
     protected abstract int getIndex(String uuid);
 
     @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            deleteInArrays(index);
-            storage[size - 1] = null;
-            size--;
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    public void deleteInStorage(String uuid, int index) {
+        deleteInArrays(index);
+        storage[size - 1] = null;
+        size--;
     }
 
     protected abstract void deleteInArrays(int index);

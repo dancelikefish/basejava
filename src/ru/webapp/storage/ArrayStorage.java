@@ -7,7 +7,7 @@ import ru.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void saveInArrays(Resume r, int index) {
+    protected void saveInStorage(Resume r, int index) {
         storage[size] = r;
     }
 
@@ -17,6 +17,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[size - 1] = null;
     }
 
+    @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
