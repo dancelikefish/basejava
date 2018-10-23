@@ -1,6 +1,5 @@
 package ru.webapp.storage;
 
-import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -18,14 +17,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public void updateInStorage(Resume r, int index) {
         storage[index] = r;
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else return storage[index];
     }
 
     @Override
