@@ -1,5 +1,6 @@
 package ru.webapp.storage;
 
+import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -8,9 +9,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void saveInStorage(Resume r, int binaryValue) {
-        binaryValue = -binaryValue - 1;
-        System.arraycopy(storage, binaryValue, storage, binaryValue + 1, size - binaryValue);
-        storage[binaryValue] = r;
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage is overflowed", r.getUuid());
+        } else
+            binaryValue = -binaryValue - 1;
+            System.arraycopy(storage, binaryValue, storage, binaryValue + 1, size - binaryValue);
+            storage[binaryValue] = r;
+            size++;
     }
 
     @Override

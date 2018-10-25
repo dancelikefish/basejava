@@ -2,9 +2,12 @@ package ru.webapp.storage;
 
 import ru.webapp.model.Resume;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
+
+    protected Map<String, Resume> resumeMap = new LinkedHashMap<>();
 
     @Override
     public void clear() {

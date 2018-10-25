@@ -1,9 +1,13 @@
 package ru.webapp.storage;
 
-import ru.webapp.exception.ExistStorageException;
 import ru.webapp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListStorage extends AbstractStorage {
+
+    protected List<Resume> resumeList = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -12,9 +16,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void saveInStorage(Resume r, int index) {
-        if (resumeList.contains(r)) {
-            throw new ExistStorageException(r.getUuid());
-        } else resumeList.add(r);
+        resumeList.add(r);
     }
 
     @Override

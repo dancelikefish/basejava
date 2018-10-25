@@ -1,14 +1,22 @@
 package ru.webapp.storage;
 
+import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
 /**
  * Array based ru.webapp.storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
+
     @Override
     protected void saveInStorage(Resume r, int index) {
-        storage[size] = r;
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage is overflowed", r.getUuid());
+        }
+        else
+            storage[size] = r;
+            size++;
+
     }
 
     @Override
