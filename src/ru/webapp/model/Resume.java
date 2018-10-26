@@ -7,7 +7,8 @@ import java.util.UUID;
  * Initial resume class
  */
 public class Resume implements Comparable<Resume> {
-    private final String uuid;
+    private String uuid;
+    private int searchKey;
 
     public Resume() {
         this(UUID.randomUUID().toString());
@@ -15,6 +16,13 @@ public class Resume implements Comparable<Resume> {
 
     public Resume(String uuid) {
         this.uuid = uuid;
+    }
+    public Resume(int searchKey) {
+        this.searchKey = searchKey;
+    }
+
+    public int getSearchKey() {
+        return searchKey;
     }
 
     public String getUuid() {
