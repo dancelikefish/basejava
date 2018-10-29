@@ -8,20 +8,20 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void saveInStorage(Resume r, Resume binaryValue) {
-        int index = binaryValue.getSearchKey();
+    protected void saveInStorage(Resume r, Object binaryValue) {
+        int index = (Integer) binaryValue;
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage is overflowed", r.getUuid());
         } else
             index = -index - 1;
-            System.arraycopy(storage, index, storage, index + 1, size - index);
-            storage[index] = r;
-            size++;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = r;
+        size++;
     }
 
     @Override
-    protected boolean isValid(Resume searchKey) {
-        return searchKey.getSearchKey() < 0;
+    protected boolean isValid(Object searchKey) {
+        return (Integer) searchKey < 0;
     }
 
     @Override
@@ -30,8 +30,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected Resume getIndex(String uuid) {
+    protected Object getIndex(String uuid) {
         Resume searchKey = new Resume(uuid);
-        return new Resume(Arrays.binarySearch(storage, 0, size, searchKey));
+        return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }

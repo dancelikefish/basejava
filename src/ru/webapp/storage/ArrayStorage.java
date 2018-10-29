@@ -9,19 +9,18 @@ import ru.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void saveInStorage(Resume r, Resume searchKey) {
+    protected void saveInStorage(Resume r, Object searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage is overflowed", r.getUuid());
-        }
-        else
+        } else
             storage[size] = r;
-            size++;
+        size++;
 
     }
 
     @Override
-    protected boolean isValid(Resume searchKey) {
-        return searchKey.getSearchKey() < 0;
+    protected boolean isValid(Object searchKey) {
+        return (Integer) searchKey < 0;
     }
 
     @Override
@@ -31,13 +30,13 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected Resume getIndex(String uuid) {
+    protected Object getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
-                return new Resume(i);
+                return i;
             }
         }
-        return new Resume(-1);
+        return -1;
     }
 }
 

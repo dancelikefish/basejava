@@ -15,27 +15,27 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveInStorage(Resume r, Resume index) {
+    public void saveInStorage(Resume r, Object index) {
         resumeMap.put(r.getUuid(), r);
     }
 
     @Override
-    protected boolean isValid(Resume searchKey) {
+    protected boolean isValid(Object searchKey) {
         return searchKey == null;
     }
 
     @Override
-    public void updateInStorage(Resume r, Resume searchKey) {
+    public void updateInStorage(Resume r, Object searchKey) {
         resumeMap.replace(r.getUuid(), r, r);
     }
 
     @Override
-    protected Resume getInStorage(String uuid, Resume searchKey) {
+    protected Resume getInStorage(String uuid, Object searchKey) {
         return resumeMap.get(uuid);
     }
 
     @Override
-    protected Resume getIndex(String uuid) {
+    protected Object getIndex(String uuid) {
         for (Map.Entry<String, Resume> entry : resumeMap.entrySet()) {
             if (uuid.equals(entry.getKey())) {
                 return entry.getValue();
@@ -45,7 +45,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void deleteInStorage(String uuid, Resume searchKey) {
+    public void deleteInStorage(String uuid, Object searchKey) {
         resumeMap.remove(uuid);
     }
 

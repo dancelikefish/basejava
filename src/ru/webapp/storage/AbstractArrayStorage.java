@@ -16,20 +16,20 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void updateInStorage(Resume r, Resume searchKey) {
-        int index = searchKey.getSearchKey();
+    public void updateInStorage(Resume r, Object searchKey) {
+        int index = (Integer) searchKey;
         storage[index] = r;
     }
 
     @Override
-    protected Resume getInStorage(String uuid, Resume searchKey) {
-        int index = searchKey.getSearchKey();
+    protected Resume getInStorage(String uuid, Object searchKey) {
+        int index = (Integer) searchKey;
         return storage[index];
     }
 
     @Override
-    public void deleteInStorage(String uuid, Resume searchKey) {
-        int index = searchKey.getSearchKey();
+    public void deleteInStorage(String uuid, Object searchKey) {
+        int index = (Integer) searchKey;
         deleteInArrays(index);
         storage[size - 1] = null;
         size--;
