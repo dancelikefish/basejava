@@ -1,6 +1,5 @@
 package ru.webapp.storage;
 
-import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
 /**
@@ -9,22 +8,12 @@ import ru.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void saveInStorage(Resume r, Object searchKey) {
-        if (size == STORAGE_LIMIT) {
-            throw new StorageException("Storage is overflowed", r.getUuid());
-        } else
-            storage[size] = r;
-        size++;
-
+    protected void saveInArray(Resume r, Object index) {
+        storage[size] = r;
     }
 
     @Override
-    protected boolean isValid(Object searchKey) {
-        return (Integer) searchKey < 0;
-    }
-
-    @Override
-    protected void deleteInArrays(int index) {
+    protected void deleteInArray(int index) {
         storage[index] = storage[size - 1];
         storage[size - 1] = null;
     }

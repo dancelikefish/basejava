@@ -1,5 +1,6 @@
 package ru.webapp.storage;
 
+import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -16,26 +17,37 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void updateInStorage(Resume r, Object searchKey) {
-        int index = (Integer) searchKey;
+    protected void saveInStorage(Resume r, Object searchIndex) {
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage is overflowed", r.getUuid());
+        } else
+            saveInArray(r, searchIndex);
+            size++;
+    }
+
+    protected abstract void saveInArray(Resume r, Object searchIndex);
+
+    @Override
+    public void updateInStorage(Resume r, Object searchIndex) {
+        int index = (Integer) searchIndex;
         storage[index] = r;
     }
 
     @Override
-    protected Resume getInStorage(String uuid, Object searchKey) {
-        int index = (Integer) searchKey;
+    protected Resume getInStorage(String uuid, Object searchIndex) {
+        int index = (Integer) searchIndex;
         return storage[index];
     }
 
     @Override
-    public void deleteInStorage(String uuid, Object searchKey) {
-        int index = (Integer) searchKey;
-        deleteInArrays(index);
+    public void deleteInStorage(String uuid, Object searchIndex) {
+        int index = (Integer) searchIndex;
+        deleteInArray(index);
         storage[size - 1] = null;
         size--;
     }
 
-    protected abstract void deleteInArrays(int index);
+    protected abstract void deleteInArray(int searchIndex);
 
     @Override
     public Resume[] getAll() {
@@ -45,5 +57,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    protected boolean isNotValid(Object searchIndex) {
+        return (Integer) searchIndex < 0;
     }
 }
