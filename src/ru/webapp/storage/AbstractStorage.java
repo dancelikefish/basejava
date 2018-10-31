@@ -35,20 +35,20 @@ public abstract class AbstractStorage implements Storage {
         Object searchKey = getIndex(uuid);
         if (isNotValid(searchKey)) {
             throw new NotExistStorageException(uuid);
-        } else return getInStorage(uuid, searchKey);
+        } else return getInStorage(searchKey);
     }
 
-    protected abstract Resume getInStorage(String uuid, Object searchKey);
+    protected abstract Resume getInStorage(Object searchKey);
 
     @Override
     public void delete(String uuid) {
         Object searchKey =  getIndex(uuid);
         if (isNotValid(searchKey)) {
             throw new NotExistStorageException(uuid);
-        } else deleteInStorage(uuid, searchKey);
+        } else deleteInStorage(searchKey);
     }
 
-    protected abstract void deleteInStorage(String uuid, Object searchKey);
+    protected abstract void deleteInStorage(Object searchKey);
 
     protected abstract boolean isNotValid(Object searchKey);
 

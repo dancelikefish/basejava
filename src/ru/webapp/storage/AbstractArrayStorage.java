@@ -34,13 +34,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getInStorage(String uuid, Object searchIndex) {
+    protected Resume getInStorage(Object searchIndex) {
         int index = (Integer) searchIndex;
         return storage[index];
     }
 
     @Override
-    public void deleteInStorage(String uuid, Object searchIndex) {
+    public void deleteInStorage(Object searchIndex) {
         int index = (Integer) searchIndex;
         deleteInArray(index);
         storage[size - 1] = null;
