@@ -21,7 +21,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public void updateInStorage(Resume r, Object searchKey) {
-        resumeMap.replace(r.getUuid(), r, r);
+        resumeMap.replace((String) searchKey, r);
     }
 
     @Override
@@ -48,14 +48,11 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isNotValid(Object searchKey) {
-        return searchKey == null;
+        return !resumeMap.containsKey(searchKey);
     }
 
     @Override
-    protected Object getIndex(String uuid) {
-        if (resumeMap.containsKey(uuid)) {
-            return uuid;
-        }
-        return null;
+    protected Object getSearchKey(String uuid) {
+        return uuid;
     }
 }
