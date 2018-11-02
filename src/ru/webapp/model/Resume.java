@@ -1,13 +1,15 @@
 package ru.webapp.model;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
  * Initial resume class
  */
-public class Resume implements Comparable<Resume> {
+public class Resume {
     private final String uuid;
+    private String fullName;
 
     public Resume() {
         this(UUID.randomUUID().toString());
@@ -17,8 +19,17 @@ public class Resume implements Comparable<Resume> {
         this.uuid = uuid;
     }
 
+    public Resume(String uuid, String fullName) {
+        this.uuid = uuid;
+        this.fullName = fullName;
+    }
+
     public String getUuid() {
         return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     @Override
@@ -39,8 +50,10 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    @Override
-    public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
-    }
+    public static final Comparator<Resume> FULLNAME_COMPARATOR = (o1, o2) -> {
+        if (o1.getFullName().compareTo(o2.getFullName())== 0) {
+            return o1.getUuid().compareTo(o2.getUuid());
+        }
+        return o1.getFullName().compareTo(o2.getFullName());
+    };
 }

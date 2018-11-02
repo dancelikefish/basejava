@@ -2,8 +2,9 @@ package ru.webapp.storage;
 
 import ru.webapp.model.Resume;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+
+import static ru.webapp.model.Resume.FULLNAME_COMPARATOR;
 
 public class MapStorage extends AbstractStorage {
 
@@ -37,8 +38,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumeMap.values().toArray(new Resume[0]);
+    public List<Resume> getAllSorted() {
+        List<Resume> resumes = new ArrayList<>(resumeMap.values());
+        resumes.sort(FULLNAME_COMPARATOR);
+        return resumes;
     }
 
     @Override

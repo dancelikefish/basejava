@@ -5,6 +5,8 @@ import ru.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.webapp.model.Resume.FULLNAME_COMPARATOR;
+
 public class ListStorage extends AbstractStorage {
 
     protected List<Resume> resumeList = new ArrayList<>();
@@ -35,8 +37,9 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumeList.toArray(new Resume[resumeList.size()]);
+    public List<Resume> getAllSorted() {
+        resumeList.sort(FULLNAME_COMPARATOR);
+        return resumeList;
     }
 
     @Override
