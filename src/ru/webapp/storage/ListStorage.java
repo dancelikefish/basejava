@@ -3,9 +3,8 @@ package ru.webapp.storage;
 import ru.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-import static ru.webapp.model.Resume.FULLNAME_COMPARATOR;
 
 public class ListStorage extends AbstractStorage {
 
@@ -17,28 +16,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveInStorage(Resume r, Object searchKey) {
-        resumeList.add(r);
+    protected void saveInStorage(Resume resume, Object searchKey) {
+        resumeList.add(resume);
     }
 
     @Override
-    protected void updateInStorage(Resume r, Object searchKey) {
-        resumeList.set((Integer) searchKey, r);
+    protected void updateInStorage(Resume resume, Object searchKey) {
+        resumeList.set((Integer) searchKey, resume);
     }
 
     @Override
-    protected Resume getInStorage(Object searchKey) {
+    protected Resume getFromStorage(Object searchKey) {
         return resumeList.get((Integer) searchKey);
     }
 
     @Override
-    protected void deleteInStorage(Object searchKey) {
+    protected void deleteFromStorage(Object searchKey) {
         resumeList.remove(((Integer) searchKey).intValue());
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        resumeList.sort(FULLNAME_COMPARATOR);
+    public Collection<Resume> getCollection() {
         return resumeList;
     }
 
@@ -48,7 +46,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isNotValid(Object searchKey) {
+    protected boolean isValid(Object searchKey) {
         return (Integer) searchKey < 0;
     }
 

@@ -5,9 +5,8 @@ import ru.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-
-import static ru.webapp.model.Resume.FULLNAME_COMPARATOR;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -21,15 +20,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveInStorage(Resume r, Object searchIndex) {
+    protected void saveInStorage(Resume resume, Object searchIndex) {
         if (size == STORAGE_LIMIT) {
-            throw new StorageException("Storage is overflowed", r.getUuid());
+            throw new StorageException("Storage is overflowed", resume.getUuid());
         } else
-            saveInArray(r, searchIndex);
+            saveInArray(resume, searchIndex);
             size++;
     }
 
-    protected abstract void saveInArray(Resume r, Object searchIndex);
+    protected abstract void saveInArray(Resume resume, Object searchIndex);
 
     @Override
     public void updateInStorage(Resume r, Object searchIndex) {
@@ -38,13 +37,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getInStorage(Object searchIndex) {
+    protected Resume getFromStorage(Object searchIndex) {
         int index = (Integer) searchIndex;
         return storage[index];
     }
 
     @Override
-    public void deleteInStorage(Object searchIndex) {
+    public void deleteFromStorage(Object searchIndex) {
         int index = (Integer) searchIndex;
         deleteInArray(index);
         storage[size - 1] = null;
@@ -54,10 +53,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deleteInArray(int searchIndex);
 
     @Override
-    public List<Resume> getAllSorted() {
+    public Collection<Resume> getCollection() {
         Resume[] resumes = Arrays.copyOf(storage, size);
         List<Resume> list = new ArrayList<>(Arrays.asList(resumes));
-        list.sort(FULLNAME_COMPARATOR);
         return list;
     }
 
@@ -67,7 +65,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isNotValid(Object searchIndex) {
+    protected boolean isValid(Object searchIndex) {
         return (Integer) searchIndex < 0;
     }
 }

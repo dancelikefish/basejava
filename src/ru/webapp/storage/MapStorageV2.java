@@ -2,12 +2,7 @@ package ru.webapp.storage;
 
 import ru.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import static ru.webapp.model.Resume.FULLNAME_COMPARATOR;
+import java.util.*;
 
 public class MapStorageV2 extends AbstractStorage {
 
@@ -19,30 +14,28 @@ public class MapStorageV2 extends AbstractStorage {
     }
 
     @Override
-    public void saveInStorage(Resume r, Object searchKey) {
-        resumeMap.put(r, r.getUuid());
+    public void saveInStorage(Resume resume, Object searchKey) {
+        resumeMap.put(resume, resume.getUuid());
     }
 
     @Override
-    public void updateInStorage(Resume r, Object searchKey) {
-        resumeMap.replace((Resume) searchKey, r.getUuid());
+    public void updateInStorage(Resume resume, Object searchKey) {
+        resumeMap.replace((Resume) searchKey, resume.getUuid());
     }
 
     @Override
-    protected Resume getInStorage(Object searchKey) {
+    protected Resume getFromStorage(Object searchKey) {
         return new Resume(resumeMap.get(searchKey));
     }
 
     @Override
-    public void deleteInStorage(Object searchKey) {
+    public void deleteFromStorage(Object searchKey) {
         resumeMap.remove(searchKey);
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> resumes = new ArrayList<>(resumeMap.keySet());
-        resumes.sort(FULLNAME_COMPARATOR);
-        return resumes;
+    public Collection<Resume> getCollection() {
+        return resumeMap.keySet();
     }
 
     @Override
@@ -51,7 +44,7 @@ public class MapStorageV2 extends AbstractStorage {
     }
 
     @Override
-    protected boolean isNotValid(Object searchKey) {
+    protected boolean isValid(Object searchKey) {
         return !resumeMap.containsKey(searchKey);
     }
 

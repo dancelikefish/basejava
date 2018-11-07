@@ -1,6 +1,5 @@
 package ru.webapp.model;
 
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -49,11 +48,4 @@ public class Resume {
     public String toString() {
         return uuid;
     }
-
-    public static final Comparator<Resume> FULLNAME_COMPARATOR = (o1, o2) -> {
-        if (o1.getFullName().compareTo(o2.getFullName())== 0) {
-            return o1.getUuid().compareTo(o2.getUuid());
-        }
-        return o1.getFullName().compareTo(o2.getFullName());
-    };
 }

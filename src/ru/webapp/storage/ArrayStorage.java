@@ -8,8 +8,8 @@ import ru.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void saveInArray(Resume r, Object index) {
-        storage[size] = r;
+    protected void saveInArray(Resume resume, Object index) {
+        storage[size] = resume;
     }
 
     @Override

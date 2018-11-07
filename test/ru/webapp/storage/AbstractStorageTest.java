@@ -11,19 +11,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AbstractStorageTest {
-    private Storage storage;
+    protected Storage storage;
 
-    private static final String UUID1 = "uuid1";
-    private static final String UUID2 = "uuid2";
-    private static final String UUID3 = "uuid3";
-    private static final String UUID4 = "uuid4";
+    protected static final String UUID1 = "uuid1";
+    protected static final String UUID2 = "uuid2";
+    protected static final String UUID3 = "uuid3";
+    protected static final String UUID4 = "uuid4";
 
-    private static final Resume R1 = new Resume(UUID1, "uuid1");
-    private static final Resume R2 = new Resume(UUID2, "uuid1");
-    private static final Resume R3 = new Resume(UUID3, "uuid3");
-    private static final Resume R4 = new Resume(UUID4, "uuid4");
-    private static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
-    private static final List<Resume> expectedResumes2 = Arrays.asList(R1, R2);
+    protected static final Resume R1 = new Resume(UUID1, "uuid1");
+    protected static final Resume R2 = new Resume(UUID2, "uuid1");
+    protected static final Resume R3 = new Resume(UUID3, "uuid3");
+    protected static final Resume R4 = new Resume(UUID4, "uuid4");
+    protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
+    protected static final List<Resume> expectedResumes2 = Arrays.asList(R1, R2);
 
 
     public AbstractStorageTest(Storage storage) {
