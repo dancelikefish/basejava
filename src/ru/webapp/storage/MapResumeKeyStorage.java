@@ -4,9 +4,9 @@ import ru.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorageV2 extends AbstractStorage {
+public class MapResumeKeyStorage extends AbstractStorage {
 
-    protected Map<Resume, String> resumeMap = new LinkedHashMap<>();
+    protected Map<String, Resume> resumeMap = new LinkedHashMap<>();
 
     @Override
     public void clear() {
@@ -15,27 +15,27 @@ public class MapStorageV2 extends AbstractStorage {
 
     @Override
     public void saveInStorage(Resume resume, Object searchKey) {
-        resumeMap.put(resume, resume.getUuid());
+        resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
     public void updateInStorage(Resume resume, Object searchKey) {
-        resumeMap.replace((Resume) searchKey, resume.getUuid());
+        resumeMap.replace(resume.getUuid(), (Resume) searchKey);
     }
 
     @Override
     protected Resume getFromStorage(Object searchKey) {
-        return new Resume(resumeMap.get(searchKey));
+        return (Resume) searchKey;
     }
 
     @Override
     public void deleteFromStorage(Object searchKey) {
-        resumeMap.remove(searchKey);
+        resumeMap.remove(searchKey.toString());
     }
 
     @Override
-    public Collection<Resume> getCollection() {
-        return resumeMap.keySet();
+    public List<Resume> getList() {
+        return new ArrayList<>(resumeMap.values());
     }
 
     @Override
@@ -45,14 +45,14 @@ public class MapStorageV2 extends AbstractStorage {
 
     @Override
     protected boolean isValid(Object searchKey) {
-        return !resumeMap.containsKey(searchKey);
+        return !resumeMap.containsValue(searchKey);
     }
 
     @Override
     protected Object getSearchKey(String uuid) {
-        for (Map.Entry<Resume, String> entry: resumeMap.entrySet()) {
-            if (uuid.equals(entry.getValue())) {
-                return entry.getKey();
+        for (Map.Entry<String, Resume> entry : resumeMap.entrySet()) {
+            if (uuid.equals(entry.getKey())) {
+                return entry.getValue();
             }
         }
         return null;

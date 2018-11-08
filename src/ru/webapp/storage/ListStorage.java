@@ -3,7 +3,6 @@ package ru.webapp.storage;
 import ru.webapp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -36,8 +35,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Collection<Resume> getCollection() {
-        return resumeList;
+    public List<Resume> getList() {
+        return new ArrayList<>(resumeList);
     }
 
     @Override

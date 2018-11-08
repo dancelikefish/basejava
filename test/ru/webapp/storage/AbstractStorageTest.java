@@ -18,13 +18,11 @@ public class AbstractStorageTest {
     protected static final String UUID3 = "uuid3";
     protected static final String UUID4 = "uuid4";
 
-    protected static final Resume R1 = new Resume(UUID1, "uuid1");
-    protected static final Resume R2 = new Resume(UUID2, "uuid1");
-    protected static final Resume R3 = new Resume(UUID3, "uuid3");
-    protected static final Resume R4 = new Resume(UUID4, "uuid4");
+    protected static final Resume R1 = new Resume(UUID1, UUID1);
+    protected static final Resume R2 = new Resume(UUID2, UUID2);
+    protected static final Resume R3 = new Resume(UUID3, UUID3);
+    protected static final Resume R4 = new Resume(UUID4, UUID4);
     protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
-    protected static final List<Resume> expectedResumes2 = Arrays.asList(R1, R2);
-
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -81,11 +79,11 @@ public class AbstractStorageTest {
         storage.get("dummy");
     }
 
-    @Test
+    @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(R3.getUuid());
 
-        Assert.assertEquals(expectedResumes2, storage.getAllSorted());
+        Assert.assertEquals(storage.get(UUID3), R3);
         Assert.assertEquals(2, storage.size());
     }
 

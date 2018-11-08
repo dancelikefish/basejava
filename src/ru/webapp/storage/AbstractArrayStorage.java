@@ -5,7 +5,6 @@ import ru.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -53,10 +52,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deleteInArray(int searchIndex);
 
     @Override
-    public Collection<Resume> getCollection() {
+    public List<Resume> getList() {
         Resume[] resumes = Arrays.copyOf(storage, size);
-        List<Resume> list = new ArrayList<>(Arrays.asList(resumes));
-        return list;
+        return new ArrayList<>(Arrays.asList(resumes));
     }
 
     @Override

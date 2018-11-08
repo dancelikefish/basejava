@@ -29,7 +29,3 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 }
 
-/**
- * @return array, contains only Resumes in ru.webapp.storage (without null)
- */
-

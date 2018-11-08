@@ -4,8 +4,6 @@ import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,6 +45,19 @@ public abstract class AbstractStorage implements Storage {
         deleteFromStorage(searchKey);
     }
 
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> resumes = getList();
+        resumes.sort(FULLNAME_COMPARATOR);
+        return resumes;
+    }
+
+    protected abstract List<Resume> getList();
+
+    public static final Comparator<Resume> FULLNAME_COMPARATOR = (o1, o2) -> o1.getFullName().compareTo(o2.getFullName())== 0 ?
+            o1.getUuid().compareTo(o2.getUuid()) :
+            o1.getFullName().compareTo(o2.getFullName());
+
     private Object getNotValidSearchKey(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (!isValid(searchKey)) {
@@ -62,21 +73,5 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchKey;
     }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> resumes = new ArrayList<>(getCollection());
-        resumes.sort(FULLNAME_COMPARATOR);
-        return resumes;
-    }
-
-    protected abstract Collection<Resume> getCollection();
-
-    public static final Comparator<Resume> FULLNAME_COMPARATOR = (o1, o2) -> {
-        if (o1.getFullName().compareTo(o2.getFullName())== 0) {
-            return o1.getUuid().compareTo(o2.getUuid());
-        }
-        return o1.getFullName().compareTo(o2.getFullName());
-    };
 }
 
