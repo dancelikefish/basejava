@@ -10,32 +10,14 @@ public class Resume  {
     private final String uuid;
     private String fullName;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
-    }
-
-    public Resume(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Resume(String uuid, String fullName) {
-        this(uuid);
-        this.fullName = fullName;
-    }
-
-   /* public Resume() {
-        this(UUID.randomUUID().toString());
-    }
-
-    public Resume(String uuid) {
-        this.uuid = uuid;
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
         this.fullName = fullName;
-
-    }*/
+    }
 
     public String getUuid() {
         return uuid;

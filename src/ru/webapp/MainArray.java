@@ -1,7 +1,7 @@
 package ru.webapp;
 
 import ru.webapp.model.Resume;
-import ru.webapp.storage.MapResumeKeyStorage;
+import ru.webapp.storage.MapResumeStorage;
 import ru.webapp.storage.Storage;
 
 import java.io.BufferedReader;
@@ -14,7 +14,7 @@ import java.util.List;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new MapResumeKeyStorage();
+    private final static Storage ARRAY_STORAGE = new MapResumeStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

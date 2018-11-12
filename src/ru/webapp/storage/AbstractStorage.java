@@ -4,10 +4,14 @@ import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
+
+    protected static final Comparator<Resume> FULLNAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected abstract void saveInStorage(Resume resume, Object searchKey);
 
@@ -53,10 +57,6 @@ public abstract class AbstractStorage implements Storage {
     }
 
     protected abstract List<Resume> getList();
-
-    public static final Comparator<Resume> FULLNAME_COMPARATOR = (o1, o2) -> o1.getFullName().compareTo(o2.getFullName())== 0 ?
-            o1.getUuid().compareTo(o2.getUuid()) :
-            o1.getFullName().compareTo(o2.getFullName());
 
     private Object getNotValidSearchKey(String uuid) {
         Object searchKey = getSearchKey(uuid);

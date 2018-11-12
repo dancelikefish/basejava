@@ -21,7 +21,6 @@ public class MainCollections {
 
 
         System.out.println(collection.contains(new Resume("uuid1")));
-        System.out.println(collection.get(collection.indexOf(new Resume("uuid2"))));
         System.out.println(collection.indexOf(r3));
         System.out.println(collection.remove(new Resume("uuid2")));
         System.out.println(collection.toString());
@@ -36,6 +35,8 @@ public class MainCollections {
         }
 
 
+        Resume r  = new Resume("asd");
+
         HashMap<String, Resume> map = new LinkedHashMap<>();
         map.put("uuid3", r2);
         map.put("uuid2", r1);
@@ -43,9 +44,6 @@ public class MainCollections {
         map.put("uuid10", r2);
         map.put("asv", r2);
 
-        for (Map.Entry<String, Resume> entry : map.entrySet()) {
-            System.out.println(entry.getValue());
-        }
     }
 
 }
