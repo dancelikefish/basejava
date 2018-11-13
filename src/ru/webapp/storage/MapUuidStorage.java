@@ -4,7 +4,7 @@ import ru.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
     protected Map<String, Resume> resumeMap = new LinkedHashMap<>();
 
@@ -14,24 +14,24 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveInStorage(Resume resume, Object searchKey) {
+    public void saveInStorage(Resume resume, String searchKey) {
         resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void updateInStorage(Resume resume, Object searchKey) {
-        resumeMap.replace((String) searchKey, resume);
+    public void updateInStorage(Resume resume, String searchKey) {
+        resumeMap.replace(searchKey, resume);
     }
 
     @Override
-    protected Resume getFromStorage(Object searchKey) {
-        String key = (String) searchKey;
+    protected Resume getFromStorage(String searchKey) {
+        String key = searchKey;
         return resumeMap.get(key);
     }
 
     @Override
-    public void deleteFromStorage(Object searchKey) {
-        String key = (String) searchKey;
+    public void deleteFromStorage(String searchKey) {
+        String key = searchKey;
         resumeMap.remove(key);
     }
 
@@ -46,12 +46,12 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isValid(Object searchKey) {
+    protected boolean isValid(String searchKey) {
         return !resumeMap.containsKey(searchKey);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 }
