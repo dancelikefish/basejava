@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deleteInArray(int searchIndex);
 
     @Override
-    public List<Resume> getList() {
+    public List<Resume> getCopyList() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
