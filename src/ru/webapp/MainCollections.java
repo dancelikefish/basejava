@@ -13,7 +13,6 @@ public class MainCollections {
         List<Resume> collection = new ArrayList<>();
 
 
-
         collection.add(r1);
         collection.add(r2);
         collection.add(r3);
@@ -34,15 +33,11 @@ public class MainCollections {
             }
         }
 
+        Map<List<String>, List<String>> map = new LinkedHashMap<>();
 
-        Resume r  = new Resume("asd");
 
-        HashMap<String, Resume> map = new LinkedHashMap<>();
-        map.put("uuid3", r2);
-        map.put("uuid2", r1);
-        map.put("uuid4", r2);
-        map.put("uuid10", r2);
-        map.put("asv", r2);
+
+
 
     }
 

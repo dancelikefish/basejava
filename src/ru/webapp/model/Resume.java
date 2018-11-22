@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Initial resume class
  */
-public class Resume  {
+public class Resume implements ResumeSection{
     private final String uuid;
     private final String fullName;
 
