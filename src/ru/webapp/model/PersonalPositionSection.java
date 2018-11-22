@@ -14,4 +14,9 @@ public class PersonalPositionSection implements ResumeSection {
     public PersonalPositionSection(String textSection) {
         this.textSection = textSection;
     }
+
+    @Override
+    public String toString() {
+        return textSection + "\n";
+    }
 }
