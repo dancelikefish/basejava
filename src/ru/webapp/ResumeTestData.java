@@ -55,7 +55,7 @@ public class ResumeTestData {
                 "для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA " +
                 "via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, " +
                 "doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
-                "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python", LocalDate.of(2012, 04, 1),
+                "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python", LocalDate.of(2012, 4, 1),
                 LocalDate.of(2014, 10, 1));
         ExperienceEducationSection luxoft = new ExperienceEducationSection("Luxoft (Deutsche Bank)", "Ведущий программист", "Участие в проекте Deutsche Bank" +
                 " CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, " +
@@ -109,5 +109,6 @@ public class ResumeTestData {
 
         Resume gKislin = new Resume("Grigoriy Kislin", personal, position, achievement, qualification, experience, education);
         System.out.println(gKislin.toString());
+
     }
 }

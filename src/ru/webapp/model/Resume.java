@@ -38,6 +38,7 @@ public class Resume implements ResumeSection {
         this.experienceSection = experienceSection;
         this.educationSection = educationSection;
     }
+
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
@@ -48,7 +49,6 @@ public class Resume implements ResumeSection {
         this.uuid = uuid;
         this.fullName = fullName;
     }
-
 
     public String getUuid() {
         return uuid;
@@ -74,7 +74,7 @@ public class Resume implements ResumeSection {
 
     @Override
     public String toString() {
-        return fullName + "\n" + SectionType.PERSONAL.getTitle() + "\n" + personalSection.toString() + "\n" + SectionType.OBJECTIVE.getTitle() + "\n" + positionSection.toString() +
+        return fullName + "\n" + ContactType.CELLPHONENUMBER.printContacts() + "\n" + SectionType.PERSONAL.getTitle() + "\n" + personalSection.toString() + "\n" + SectionType.OBJECTIVE.getTitle() + "\n" + positionSection.toString() +
                 "\n" + SectionType.ACHIEVEMENT.getTitle() + "\n" + achievementSection.toString() + "\n" + SectionType.QUALIFICATIONS.getTitle() + "\n" + qualificationSection.toString() + "\n " +
                 SectionType.EXPEREINCE.getTitle() + "\n" + experienceSection.toString() + "\n" + SectionType.EDUCATION.getTitle() + "\n" + educationSection.toString();
     }
