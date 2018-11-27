@@ -3,14 +3,14 @@ package ru.webapp.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class ExperienceEducation implements ResumeSection {
+public class Organisation implements Section {
     private String occupationPlace;
     private String occupationTitle;
     private String duties;
     private LocalDate start;
     private LocalDate finish;
 
-    public ExperienceEducation(String occupationPlace, String occupationTitle, String duties, LocalDate start, LocalDate finish) {
+    public Organisation(String occupationPlace, String occupationTitle, String duties, LocalDate start, LocalDate finish) {
         this.occupationPlace = occupationPlace;
         this.occupationTitle = occupationTitle;
         this.duties = duties;
@@ -21,8 +21,8 @@ public class ExperienceEducation implements ResumeSection {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ExperienceEducation)) return false;
-        ExperienceEducation that = (ExperienceEducation) o;
+        if (!(o instanceof Organisation)) return false;
+        Organisation that = (Organisation) o;
         return Objects.equals(occupationPlace, that.occupationPlace) &&
                 Objects.equals(occupationTitle, that.occupationTitle) &&
                 Objects.equals(duties, that.duties) &&

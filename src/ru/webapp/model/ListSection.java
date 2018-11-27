@@ -3,10 +3,10 @@ package ru.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class AchievementQualificationSection implements ResumeSection {
+public class ListSection implements Section {
     private final List<String> listSections;
 
-    public AchievementQualificationSection(List<String> listSections) {
+    public ListSection(List<String> listSections) {
         this.listSections = listSections;
     }
 
@@ -17,8 +17,8 @@ public class AchievementQualificationSection implements ResumeSection {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AchievementQualificationSection)) return false;
-        AchievementQualificationSection that = (AchievementQualificationSection) o;
+        if (!(o instanceof ListSection)) return false;
+        ListSection that = (ListSection) o;
         return Objects.equals(listSections, that.listSections);
     }
 

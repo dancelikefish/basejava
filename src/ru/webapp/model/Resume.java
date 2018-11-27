@@ -8,11 +8,11 @@ import java.util.UUID;
 /**
  * Initial resume class
  */
-public class Resume implements ResumeSection {
+public class Resume implements Section {
     private final String uuid;
     private final String fullName;
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private Map<SectionType, ResumeSection> sections = new EnumMap<>(SectionType.class);
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -29,7 +29,7 @@ public class Resume implements ResumeSection {
         this.contacts = contacts;
     }
 
-    public void setSections(Map<SectionType, ResumeSection> sections) {
+    public void setSections(Map<SectionType, Section> sections) {
         this.sections = sections;
     }
 
@@ -37,7 +37,7 @@ public class Resume implements ResumeSection {
         return contacts.get(type);
     }
 
-    public ResumeSection getSection(SectionType type) {
+    public Section getSection(SectionType type) {
         return sections.get(type);
     }
 
