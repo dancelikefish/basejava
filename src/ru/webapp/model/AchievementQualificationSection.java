@@ -1,28 +1,34 @@
 package ru.webapp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AchievementQualificationSection implements ResumeSection {
-    private List<String> listSection;
+    private final List<String> listSections;
+
+    public AchievementQualificationSection(List<String> listSections) {
+        this.listSections = listSections;
+    }
 
     public List<String> getListSection() {
-        return listSection;
+        return listSections;
     }
 
-    public void setListSection(List<String> listSection) {
-        this.listSection = listSection;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AchievementQualificationSection)) return false;
+        AchievementQualificationSection that = (AchievementQualificationSection) o;
+        return Objects.equals(listSections, that.listSections);
     }
 
-    public AchievementQualificationSection(List<String> listSection) {
-        this.listSection = listSection;
+    @Override
+    public int hashCode() {
+        return Objects.hash(listSections);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (String s : listSection) {
-            sb.append(s + "\n");
-        }
-        return sb.toString();
+        return listSections.toString();
     }
 }
