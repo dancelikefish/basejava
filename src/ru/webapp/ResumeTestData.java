@@ -15,8 +15,8 @@ public class ResumeTestData {
     private static List<Organisation> educationPlaces = new ArrayList<>();
 
     public static void main(String[] args) {
-        Section position = new StringSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
-        Section personal = new StringSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+        Section position = new SimpleTextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        Section personal = new SimpleTextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
 
         achievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
                 " Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\"." +
