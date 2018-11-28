@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class OrganisationSection implements Section {
-    private List<Organisation> organisations;
+    private List<Organization> organisations;
 
-    public OrganisationSection(List<Organisation> organisations) {
+    public OrganisationSection(List<Organization> organisations) {
+        Objects.requireNonNull(organisations, "Organizations mustn't be null");
         this.organisations = organisations;
     }
 

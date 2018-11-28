@@ -76,7 +76,7 @@
 
 ![next1](https://user-images.githubusercontent.com/29703461/38273584-00e07dc2-3795-11e8-9006-3109f949cf33.png)
 
-![finish](https://user-images.githubusercontent.com/29703461/38275669-3e621614-379b-11e8-8b3a-8e0a3ad4c65c.png)
+![finishDate](https://user-images.githubusercontent.com/29703461/38275669-3e621614-379b-11e8-8b3a-8e0a3ad4c65c.png)
 
 - Реализуйте класс `ru.webapp.storage.ArrayStorage`, организовав хранение резюме на основе массива с методами `save, get, delete, size, clear, getAll`
 - Храните все резюме в начале `ru.webapp.storage` (без дырок в виде `null`), чтобы не перебирать каждый раз все 10000 элементов

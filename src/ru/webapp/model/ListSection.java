@@ -4,31 +4,32 @@ import java.util.List;
 import java.util.Objects;
 
 public class ListSection implements Section {
-    private final List<String> listSections;
+    private final List<String> items;
 
-    public ListSection(List<String> listSections) {
-        this.listSections = listSections;
+    public ListSection(List<String> items) {
+        Objects.requireNonNull(items, "items mustn't be null");
+        this.items = items;
     }
 
     public List<String> getListSection() {
-        return listSections;
+        return items;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ListSection)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(listSections, that.listSections);
+        return items.equals(that.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(listSections);
+        return Objects.hash(items);
     }
 
     @Override
     public String toString() {
-        return listSections.toString();
+        return items.toString();
     }
 }

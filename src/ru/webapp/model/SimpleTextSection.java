@@ -10,15 +10,16 @@ public class SimpleTextSection implements Section {
     }
 
     public SimpleTextSection(String textSection) {
+        Objects.requireNonNull(textSection, "textSection mustn't be null");
         this.textSection = textSection;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SimpleTextSection)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         SimpleTextSection that = (SimpleTextSection) o;
-        return Objects.equals(textSection, that.textSection);
+        return textSection.equals(that.textSection);
     }
 
     @Override

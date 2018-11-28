@@ -19,7 +19,7 @@
 ```
 <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,admin-gui"/>
 ```
-- Запуск из `TOMCAT_HOME\bin\`: `catalina.bat start`
+- Запуск из `TOMCAT_HOME\bin\`: `catalina.bat startDate`
  
 ## Домашнее задание HW14
 - Закончить реализацию `SqlStorage` с контактами
