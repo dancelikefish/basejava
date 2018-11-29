@@ -1,4 +1,4 @@
-package ru.webapp;
+package ru.webapp.util;
 
 import ru.webapp.model.Resume;
 import ru.webapp.storage.MapResumeStorage;

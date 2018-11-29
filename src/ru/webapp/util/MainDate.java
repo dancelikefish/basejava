@@ -1,4 +1,4 @@
-package ru.webapp;
+package ru.webapp.util;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

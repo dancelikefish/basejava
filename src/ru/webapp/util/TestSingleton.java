@@ -1,4 +1,4 @@
-package ru.webapp;
+package ru.webapp.util;
 
 public class TestSingleton {
     private static TestSingleton ourInstance;
