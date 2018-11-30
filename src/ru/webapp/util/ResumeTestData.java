@@ -90,7 +90,7 @@ public class ResumeTestData {
                 "Аспирантура (программист С, С++)", "", LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1));
         Organization spbNii2 = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "",
                 "Инженер (программист Fortran, C)", "", LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1));
-        Organization mfti = new Organization("MFTI", "", "Заочная физико-техническая школа при МФТИ", "", LocalDate.of(1984, 9, 1),
+        Organization mfti = new Organization("МФТИ", "", "Заочная физико-техническая школа при МФТИ", "", LocalDate.of(1984, 9, 1),
                 LocalDate.of(1987, 6, 1));
         add(coursera, luxofEdu, siemensAg, alcatelEdu, spbNii, spbNii2, mfti, educationPlaces);
         Section education = new OrganisationSection(educationPlaces);

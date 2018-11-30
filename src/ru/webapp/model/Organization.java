@@ -47,6 +47,6 @@ public class Organization implements Section {
 
     @Override
     public String toString() {
-        return description + "\n" + occupationTitle + "\n" + description + "\n" + startDate + " " + finishDate;
+        return homePage.getName() + "\n" + occupationTitle + "\n" + description + "\n" + startDate + " " + finishDate;
     }
 }
