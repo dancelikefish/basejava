@@ -8,6 +8,8 @@ public class Organization implements Section {
     private final List<Employment> employments;
 
     public Organization(String name, String url, List<Employment> employments) {
+        Objects.requireNonNull(name, "name mustn't be null");
+        Objects.requireNonNull(employments, "employments mustn't be null");
         this.homePage = new Link(name, url);
         this.employments = employments;
     }

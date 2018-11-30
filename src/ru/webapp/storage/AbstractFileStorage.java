@@ -5,6 +5,7 @@ import ru.webapp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,17 +37,23 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void updateInStorage(Resume resume, File file) {
-
+        try {
+            doWrite(resume, file);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
     }
 
     @Override
     protected Resume getFromStorage(File file) {
-        return null;
+        return doRead(file);
     }
+
+    protected abstract Resume doRead(File file);
 
     @Override
     protected void deleteFromStorage(File file) {
-
+        file.delete();
     }
 
     @Override
@@ -61,16 +68,21 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getCopyList() {
-        return null;
+        List<Resume> list = new ArrayList<>();
+        for (File file : directory.listFiles()) {
+            list.add(doRead(file));
+        }
+        return list;
     }
 
     @Override
     public void clear() {
-
+        for (File file : directory.listFiles())
+            file.delete();
     }
 
     @Override
     public int size() {
-        return 0;
+        return directory.listFiles().length;
     }
 }
