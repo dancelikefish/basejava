@@ -93,11 +93,11 @@ public class ResumeTestData {
         alc.add(alcatel);
 
         Organization j = new Organization("Java Online Project", "javaops.ru", jop);
-        Organization w = new Organization("Wrike","https://www.wrike.com/", wr);
-        Organization r = new Organization("RIT Center","", rit);
-        Organization l = new Organization("Luxoft", "luxoft.ru",lux);
-        Organization y = new Organization("Yota","https://www.yota.ru/", yot);
-        Organization e = new Organization("Enkata","https://www.enkata.com/", enk);
+        Organization w = new Organization("Wrike", "https://www.wrike.com/", wr);
+        Organization r = new Organization("RIT Center", "", rit);
+        Organization l = new Organization("Luxoft", "luxoft.ru", lux);
+        Organization y = new Organization("Yota", "https://www.yota.ru/", yot);
+        Organization e = new Organization("Enkata", "https://www.enkata.com/", enk);
         Organization a = new Organization("Alcatel", "alcatel.ru", alc);
 
         occupationPlaces.add(j);
