@@ -5,10 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.model.*;
+import ru.webapp.model.Resume;
 import ru.webapp.util.ResumeTestData;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class AbstractStorageTest {
     protected Storage storage;
@@ -24,45 +25,8 @@ public class AbstractStorageTest {
     protected static final Resume R4 = new Resume(UUID4, UUID4);
     protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
-    private static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private static List<String> achievements = new ArrayList<>();
-    private static List<String> qualifications = new ArrayList<>();
-    private static List<Organization> occupationPlaces = new ArrayList<>();
-    private static List<Organization> educationPlaces = new ArrayList<>();
-
     static {
-        R1.setContacts(ResumeTestData.fillContactSection(contacts));
-        R2.setContacts(ResumeTestData.fillContactSection(contacts));
-        R3.setContacts(ResumeTestData.fillContactSection(contacts));
-        R4.setContacts(ResumeTestData.fillContactSection(contacts));
-
-        R1.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
-        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
-        R1.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
-
-        R2.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R2.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
-        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
-        R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
-        R2.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
-
-        R3.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R3.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
-        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
-        R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
-        R3.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
-
-        R4.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R4.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R4.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
-        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
-        R4.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
-        R4.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
+        ResumeTestData.fillWholeResume(R1);
     }
 
     public AbstractStorageTest(Storage storage) {

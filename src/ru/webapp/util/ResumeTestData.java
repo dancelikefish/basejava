@@ -9,33 +9,28 @@ import java.util.List;
 import java.util.Map;
 
 public class ResumeTestData {
+    private static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private static Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
     private static List<String> achievements = new ArrayList<>();
     private static List<String> qualifications = new ArrayList<>();
     private static List<Organization> occupationPlaces = new ArrayList<>();
     private static List<Organization> educationPlaces = new ArrayList<>();
 
     public static void main(String[] args) {
-        Section position = new SimpleTextSection(fillPositionSection());
-        Section personal = new SimpleTextSection(fillPersonalSection());
-        Section achievement = new ListSection(fillAchievementSection(achievements));
-        Section qualification = new ListSection(fillQualificationSection(qualifications));
-        Section experience = new OrganizationSection(fillExperienceSection(occupationPlaces));
-        Section education = new OrganizationSection(fillEducationSection(educationPlaces));
-
-        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-        Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
-
-        sections.put(SectionType.PERSONAL, personal);
-        sections.put(SectionType.OBJECTIVE, position);
-        sections.put(SectionType.ACHIEVEMENT, achievement);
-        sections.put(SectionType.QUALIFICATIONS, qualification);
-        sections.put(SectionType.EXPERIENCE, experience);
-        sections.put(SectionType.EDUCATION, education);
-
         Resume gKislin = new Resume("Grigoriy Kislin");
-        gKislin.setContacts(fillContactSection(contacts));
-        gKislin.setSections(sections);
+        ResumeTestData.fillWholeResume(gKislin);
         System.out.println(gKislin.toString());
+    }
+    
+    public static void fillWholeResume(Resume resume) {
+        resume.setContacts(ResumeTestData.fillContactSection(contacts));
+
+        resume.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        resume.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
+        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
+        resume.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
     }
 
     public static Map<ContactType, String> fillContactSection(Map<ContactType, String> contacts) {
