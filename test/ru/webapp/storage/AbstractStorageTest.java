@@ -8,13 +8,10 @@ import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.*;
 import ru.webapp.util.ResumeTestData;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class AbstractStorageTest {
     protected Storage storage;
-
 
     protected static final String UUID1 = "uuid1";
     protected static final String UUID2 = "uuid2";
@@ -27,62 +24,43 @@ public class AbstractStorageTest {
     protected static final Resume R4 = new Resume(UUID4, UUID4);
     protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
+    private static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private static List<String> achievements = new ArrayList<>();
     private static List<String> qualifications = new ArrayList<>();
     private static List<Organization> occupationPlaces = new ArrayList<>();
     private static List<Organization> educationPlaces = new ArrayList<>();
 
     static {
-        R1.addContact(ContactType.CELLPHONENUMBER, "+7(921) 855-0482");
-        R1.addContact(ContactType.SKYPE, "gkislin");
-        R1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-        R1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        R1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        R1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/gkislin");
+        R1.setContacts(ResumeTestData.fillContactSection(contacts));
+        R2.setContacts(ResumeTestData.fillContactSection(contacts));
+        R3.setContacts(ResumeTestData.fillContactSection(contacts));
+        R4.setContacts(ResumeTestData.fillContactSection(contacts));
 
-        R2.addContact(ContactType.CELLPHONENUMBER, "+7(921) 222-2222");
-        R2.addContact(ContactType.SKYPE, "test2");
-        R2.addContact(ContactType.MAIL, "test2@org2.ru");
-        R2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/test2");
-        R2.addContact(ContactType.GITHUB, "https://github.com/test2");
-        R2.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/test2");
-
-        R3.addContact(ContactType.CELLPHONENUMBER, "+7(921) 333-3333");
-        R3.addContact(ContactType.SKYPE, "test3");
-        R3.addContact(ContactType.MAIL, "test3@org.ru");
-        R3.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/test3");
-        R3.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/test3");
-
-        R4.addContact(ContactType.CELLPHONENUMBER, "+7(921) 444-4444");
-        R4.addContact(ContactType.MAIL, "test@org.ru");
-        R4.addContact(ContactType.GITHUB, "https://github.com/test4");
-        R4.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/test4");
-
-        R1.addSection(SectionType.PERSONAL, new SimpleTextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillListSection(achievements)));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fill2ListSection(qualifications)));
+        R1.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
         R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
 
-        R2.addSection(SectionType.PERSONAL, new SimpleTextSection("Личные качества тест2"));
-        R2.addSection(SectionType.OBJECTIVE, new SimpleTextSection("Позиция тест2"));
-        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillListSection(achievements)));
-        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fill2ListSection(qualifications)));
+        R2.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R2.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
+        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
         R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
         R2.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
 
-        R3.addSection(SectionType.PERSONAL, new SimpleTextSection("Личные качества тест3"));
-        R3.addSection(SectionType.OBJECTIVE, new SimpleTextSection("Позиция тест3"));
-        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillListSection(achievements)));
-        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fill2ListSection(qualifications)));
+        R3.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R3.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
+        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
         R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
 
-        R4.addSection(SectionType.PERSONAL, new SimpleTextSection("Личные качества тест4"));
-        R4.addSection(SectionType.OBJECTIVE, new SimpleTextSection("Позиция тест4"));
-        R4.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillListSection(achievements)));
-        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fill2ListSection(qualifications)));
+        R4.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R4.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R4.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
+        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
         R4.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
         R4.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
     }
