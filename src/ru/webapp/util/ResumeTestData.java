@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class ResumeTestData {
     private static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private static Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
     private static List<String> achievements = new ArrayList<>();
     private static List<String> qualifications = new ArrayList<>();
     private static List<Organization> occupationPlaces = new ArrayList<>();
@@ -91,43 +90,43 @@ public class ResumeTestData {
     }
 
     public static List<Organization> fillExperienceSection(List<Organization> section) {
-        Employment javaOnlineProjects = new Employment("Автор проекта.", "Создание, организация и " +
+        Organization.Position javaOnlineProjects = new Organization.Position("Автор проекта.", "Создание, организация и " +
                 "проведение Java онлайн проектов и стажировок", LocalDate.of(2013, 10, 1), LocalDate.now());
 
-        Employment wrike = new Employment("Старший разработчик (backend)", "Проектирование и разработка " +
+        Organization.Position wrike = new Organization.Position("Старший разработчик (backend)", "Проектирование и разработка " +
                 "онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, " +
                 "авторизация по OAuth1, OAuth2, JWT SSO.", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1));
-        Employment ritCenter = new Employment("Java архитектор", "Организация процесса разработки системы ERP " +
+        Organization.Position ritCenter = new Organization.Position("Java архитектор", "Организация процесса разработки системы ERP " +
                 "для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA " +
                 "via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, " +
                 "doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, " +
                 "Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python", LocalDate.of(2012, 4, 1),
                 LocalDate.of(2014, 10, 1));
-        Employment luxoft = new Employment("Ведущий программист", "Участие в проекте Deutsche Bank" +
+        Organization.Position luxoft = new Organization.Position("Ведущий программист", "Участие в проекте Deutsche Bank" +
                 " CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, " +
                 "мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5.", LocalDate.of(2010, 12, 1),
                 LocalDate.of(2012, 4, 1));
-        Employment yota = new Employment("Ведущий специалист", "Дизайн и имплементация Java EE фреймворка для отдела \"" +
+        Organization.Position yota = new Organization.Position("Ведущий специалист", "Дизайн и имплементация Java EE фреймворка для отдела \"" +
                 "Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка." +
                 " Разработка online JMX клиента (Python/ Jython, Django, ExtJS)", LocalDate.of(2008, 6, 1), LocalDate.of(2010, 12, 1));
-        Employment enkata = new Employment("Разрабочик ПО", "Разработка информационной модели, проектирование интерфейсов," +
+        Organization.Position enkata = new Organization.Position("Разрабочик ПО", "Разработка информационной модели, проектирование интерфейсов," +
                 " реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).", LocalDate.of(2005, 1, 1), LocalDate.of(2007, 2, 1));
-        Employment alcatel = new Employment("Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение " +
+        Organization.Position alcatel = new Organization.Position("Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение " +
                 "ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).", LocalDate.of(1997, 9, 1), LocalDate.of(2005, 1, 1));
 
-        List<Employment> jop = new ArrayList<>();
+        List<Organization.Position> jop = new ArrayList<>();
         jop.add(javaOnlineProjects);
-        List<Employment> wr = new ArrayList<>();
+        List<Organization.Position> wr = new ArrayList<>();
         wr.add(wrike);
-        List<Employment> rit = new ArrayList<>();
+        List<Organization.Position> rit = new ArrayList<>();
         rit.add(ritCenter);
-        List<Employment> lux = new ArrayList<>();
+        List<Organization.Position> lux = new ArrayList<>();
         lux.add(luxoft);
-        List<Employment> yot = new ArrayList<>();
+        List<Organization.Position> yot = new ArrayList<>();
         yot.add(yota);
-        List<Employment> enk = new ArrayList<>();
+        List<Organization.Position> enk = new ArrayList<>();
         enk.add(enkata);
-        List<Employment> alc = new ArrayList<>();
+        List<Organization.Position> alc = new ArrayList<>();
         alc.add(alcatel);
 
         Organization j = new Organization("Java Online Project", "javaops.ru", jop);
@@ -150,31 +149,31 @@ public class ResumeTestData {
     }
 
     public static List<Organization> fillEducationSection(List<Organization> section) {
-        Employment coursera = new Employment("\"Functional Programming Principles in Scala\" by Martin Odersky", "",
+        Organization.Position coursera = new Organization.Position("\"Functional Programming Principles in Scala\" by Martin Odersky", "",
                 LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1));
-        Employment luxofEdu = new Employment("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", "",
+        Organization.Position luxofEdu = new Organization.Position("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", "",
                 LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1));
-        Employment siemensAg = new Employment("3 месяца обучения мобильным IN сетям (Берлин)", "",
+        Organization.Position siemensAg = new Organization.Position("3 месяца обучения мобильным IN сетям (Берлин)", "",
                 LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1));
-        Employment alcatelEdu = new Employment("6 месяцев обучения цифровым телефонным сетям (Москва)", "",
+        Organization.Position alcatelEdu = new Organization.Position("6 месяцев обучения цифровым телефонным сетям (Москва)", "",
                 LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1));
-        Employment spbNii = new Employment("Аспирантура (программист С, С++)", "", LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1));
-        Employment spbNii2 = new Employment("Инженер (программист Fortran, C)", "", LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1));
-        Employment mfti = new Employment("Заочная физико-техническая школа при МФТИ", "", LocalDate.of(1984, 9, 1),
+        Organization.Position spbNii = new Organization.Position("Аспирантура (программист С, С++)", "", LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1));
+        Organization.Position spbNii2 = new Organization.Position("Инженер (программист Fortran, C)", "", LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1));
+        Organization.Position mfti = new Organization.Position("Заочная физико-техническая школа при МФТИ", "", LocalDate.of(1984, 9, 1),
                 LocalDate.of(1987, 6, 1));
 
-        List<Employment> cour = new ArrayList<>();
+        List<Organization.Position> cour = new ArrayList<>();
         cour.add(coursera);
-        List<Employment> luxEd = new ArrayList<>();
+        List<Organization.Position> luxEd = new ArrayList<>();
         luxEd.add(luxofEdu);
-        List<Employment> siem = new ArrayList<>();
+        List<Organization.Position> siem = new ArrayList<>();
         siem.add(siemensAg);
-        List<Employment> alcat = new ArrayList<>();
+        List<Organization.Position> alcat = new ArrayList<>();
         alcat.add(alcatelEdu);
-        List<Employment> spb = new ArrayList<>();
+        List<Organization.Position> spb = new ArrayList<>();
         spb.add(spbNii);
         spb.add(spbNii2);
-        List<Employment> mft = new ArrayList<>();
+        List<Organization.Position> mft = new ArrayList<>();
         mft.add(mfti);
 
         Organization c = new Organization("Coursera", "coursera.com", cour);

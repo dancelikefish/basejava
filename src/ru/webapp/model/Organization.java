@@ -1,17 +1,21 @@
 package ru.webapp.model;
 
+import ru.webapp.util.DateUtil;
+
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 
+import static ru.webapp.util.DateUtil.NOW;
+
 public class Organization implements Section {
     private final Link homePage;
-    private final List<Employment> employments;
+    private final List<Position> positions;
 
-    public Organization(String name, String url, List<Employment> employments) {
-        Objects.requireNonNull(name, "name mustn't be null");
-        Objects.requireNonNull(employments, "employments mustn't be null");
+    public Organization(String name, String url, List<Position> positions) {
         this.homePage = new Link(name, url);
-        this.employments = employments;
+        this.positions = positions;
     }
 
     @Override
@@ -29,6 +33,52 @@ public class Organization implements Section {
 
     @Override
     public String toString() {
-        return homePage.getName() + " " + homePage.getUrl() + "\n" + employments.toString();
+        return homePage.getName() + " " + homePage.getUrl() + "\n" + positions.toString();
+    }
+
+    public static class Position {
+        private final String title;
+        private final String description;
+        private final LocalDate startDate;
+        private final LocalDate finishDate;
+
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(title, description, DateUtil.of(startYear, startMonth), NOW);
+        }
+
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(title, description, DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth));
+        }
+
+        public Position(String title, String description, LocalDate startDate, LocalDate finishDate) {
+            Objects.requireNonNull(startDate, "startDate mustn't be null");
+            Objects.requireNonNull(finishDate, "finishDate mustn't be null");
+            Objects.requireNonNull(title, "title mustn't be null");
+            this.title = title;
+            this.description = description;
+            this.startDate = startDate;
+            this.finishDate = finishDate;
+        }
+
+        @Override
+        public String toString() {
+            return title + "\n" + description + "\n" + startDate + " " + finishDate;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Position)) return false;
+            Position that = (Position) o;
+            return Objects.equals(title, that.title) &&
+                    Objects.equals(description, that.description) &&
+                    Objects.equals(startDate, that.startDate) &&
+                    Objects.equals(finishDate, that.finishDate);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(title, description, startDate, finishDate);
+        }
     }
 }
