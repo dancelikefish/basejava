@@ -8,11 +8,13 @@ import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 import ru.webapp.util.ResumeTestData;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public class AbstractStorageTest {
     protected Storage storage;
+    protected static final File STORAGE_DIR = new File("C:\\Users\\admin\\IdeaProjects\\basejava\\storage");
 
     protected static final String UUID1 = "uuid1";
     protected static final String UUID2 = "uuid2";
@@ -27,6 +29,9 @@ public class AbstractStorageTest {
 
     static {
         ResumeTestData.fillWholeResume(R1);
+        ResumeTestData.fillWholeResume(R2);
+        ResumeTestData.fillWholeResume(R3);
+        ResumeTestData.fillWholeResume(R4);
     }
 
     public AbstractStorageTest(Storage storage) {

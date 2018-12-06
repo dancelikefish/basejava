@@ -3,6 +3,7 @@ package ru.webapp.model;
 import java.util.Objects;
 
 public class SimpleTextSection implements Section {
+    private static final long serialVersionUID = 1L;
     private final String textSection;
 
     public String getTextSection() {

@@ -2,6 +2,7 @@ package ru.webapp.model;
 
 import ru.webapp.util.DateUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.Objects;
 
 import static ru.webapp.util.DateUtil.NOW;
 
-public class Organization implements Section {
+public class Organization implements Section, Serializable {
+    private static final long serialVersionUID = 1L;
     private final Link homePage;
     private final List<Position> positions;
 
@@ -36,7 +38,8 @@ public class Organization implements Section {
         return homePage.getName() + " " + homePage.getUrl() + "\n" + positions.toString();
     }
 
-    public static class Position {
+    public static class Position implements Serializable {
+        private static final long serialVersionUID = 1L;
         private final String title;
         private final String description;
         private final LocalDate startDate;

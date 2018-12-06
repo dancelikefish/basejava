@@ -3,14 +3,17 @@ package ru.webapp.storage;
 import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private File directory;
+
+    protected abstract void doWrite(Resume resume, OutputStream outputStream) throws IOException;
+
+    protected abstract Resume doRead(InputStream inputStream) throws IOException;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory mustn't be null");
@@ -33,12 +36,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         updateInStorage(resume, file);
     }
 
-    protected abstract void doWrite(Resume resume, File file) throws IOException;
 
     @Override
     protected void updateInStorage(Resume resume, File file) {
         try {
-            doWrite(resume, file);
+            doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write error", resume.getUuid(), e);
         }
@@ -47,13 +49,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume getFromStorage(File file) {
         try {
-            return doRead(file);
+            return doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
     }
-
-    protected abstract Resume doRead(File file) throws IOException;
 
     @Override
     protected void deleteFromStorage(File file) {
@@ -84,7 +84,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         for (File file : Objects.requireNonNull(directory.listFiles()))
-            file.delete();
+            deleteFromStorage(file);
     }
 
     @Override
