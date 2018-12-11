@@ -1,26 +1,24 @@
 package ru.webapp.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class MainFile {
 
-    public void walk(String path) {
-        File rootDirectory = new File(path);
-        File[] listFiles = rootDirectory.listFiles();
+    static void walk(int indent, File file) throws IOException {
+        for (int i = 0; i < indent; i++) {
+            System.out.print(" ");
+        } System.out.println(file.getName());
 
-        if (listFiles != null) {
-            for (File file : listFiles) {
-                if (file.isDirectory()) {
-                    walk(file.getAbsolutePath());
-                } else {
-                    System.out.println(file.getName());
-                }
-            }
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File file1 : Objects.requireNonNull(files))
+                walk(indent + 3, file1);
         }
     }
 
-    public static void main(String[] args) {
-        MainFile mainFile = new MainFile();
-        mainFile.walk("C:\\Users\\admin\\IdeaProjects\\basejava");
+    public static void main(String[] a) throws IOException {
+        walk(0, new File("C:\\Users\\admin\\IdeaProjects\\basejava"));
     }
 }
