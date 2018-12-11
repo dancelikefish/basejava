@@ -14,17 +14,19 @@ import java.util.List;
 
 public class AbstractStorageTest {
     protected Storage storage;
-    protected static final File STORAGE_DIR = new File("C:\\Users\\admin\\IdeaProjects\\basejava\\storage");
+    protected static final File STORAGE_DIR = new File("C:\\Users\\Admin\\IdeaProjects\\basejava\\storage");
 
     protected static final String UUID1 = "uuid1";
     protected static final String UUID2 = "uuid2";
     protected static final String UUID3 = "uuid3";
     protected static final String UUID4 = "uuid4";
+    protected static final String UUID5 = "uuid5";
 
     protected static final Resume R1 = new Resume(UUID1, UUID1);
     protected static final Resume R2 = new Resume(UUID2, UUID2);
     protected static final Resume R3 = new Resume(UUID3, UUID3);
     protected static final Resume R4 = new Resume(UUID4, UUID4);
+    protected static final Resume R5 = new Resume(UUID5, UUID5);
     protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
     static {
@@ -32,6 +34,7 @@ public class AbstractStorageTest {
         ResumeTestData.fillWholeResume(R2);
         ResumeTestData.fillWholeResume(R3);
         ResumeTestData.fillWholeResume(R4);
+        ResumeTestData.fillWholeResume(R5);
     }
 
     public AbstractStorageTest(Storage storage) {

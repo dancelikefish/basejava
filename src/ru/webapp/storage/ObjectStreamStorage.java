@@ -5,24 +5,34 @@ import ru.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-    protected ObjectStreamStorage(File directory) {
+public class ObjectStreamStorage extends AbstractFileStorage implements SerializationStrategy {
+    public ObjectStreamStorage(File directory) {
         super(directory);
     }
 
     @Override
-    protected void doWrite(Resume resume, OutputStream outputStream) throws IOException {
+    public void serialize(Resume resume, OutputStream outputStream) throws IOException {
         try(ObjectOutputStream oos = new ObjectOutputStream(outputStream)) {
             oos.writeObject(resume);
         }
     }
 
     @Override
-    protected Resume doRead(InputStream inputStream) throws IOException {
+    public Resume deserialize(InputStream inputStream) throws IOException {
         try (ObjectInputStream ois = new ObjectInputStream(inputStream)) {
             return (Resume) ois.readObject();
         } catch (ClassNotFoundException e) {
             throw new StorageException("Error read resume", null, e);
         }
+    }
+
+    @Override
+    protected void doWrite(Resume resume, OutputStream outputStream) throws IOException {
+        serialize(resume, outputStream);
+    }
+
+    @Override
+    protected Resume doRead(InputStream inputStream) throws IOException {
+        return deserialize(inputStream);
     }
 }
