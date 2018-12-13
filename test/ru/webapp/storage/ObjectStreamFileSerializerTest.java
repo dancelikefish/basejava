@@ -36,6 +36,4 @@ public class ObjectStreamFileSerializerTest extends AbstractStorageTest {
         }
         Assert.assertEquals(R5.toString(), Objects.requireNonNull(R6).toString());
     }
-
-
 }
