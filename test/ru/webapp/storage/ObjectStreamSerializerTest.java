@@ -8,33 +8,34 @@ import ru.webapp.model.Resume;
 import java.io.*;
 import java.util.Objects;
 
-public class ObjectStreamStorageTest extends AbstractStorageTest {
+public class ObjectStreamSerializerTest extends AbstractStorageTest {
     private ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("D:\\dir\\test"));
     private ObjectInputStream ois = new ObjectInputStream(new FileInputStream("D:\\dir\\test"));
-    private ObjectStreamStorage oss = new ObjectStreamStorage(STORAGE_DIR);
+    private SerializationStrategy ss = new ObjectStreamSerializer();
 
-    public ObjectStreamStorageTest() throws IOException {
-        super(new ObjectStreamStorage(STORAGE_DIR));
+    public ObjectStreamSerializerTest() throws IOException {
+        super(new PathStorage(STORAGE_DIR.toString(), new ObjectStreamSerializer()));
     }
 
     @Before
-    public void doWrite() {
+    public void serialize() {
         try {
-            oss.doWrite(R5, oos);
+            ss.serialize(R5, oos);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void doRead() {
+    public void deserialize() {
         Resume R6 = null;
         try {
-            R6 = oss.doRead(ois);
+            R6 = ss.deserialize(ois);
         } catch (IOException e) {
             e.printStackTrace();
         }
         Assert.assertEquals(R5.toString(), Objects.requireNonNull(R6).toString());
     }
+
 
 }

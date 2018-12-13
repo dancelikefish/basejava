@@ -5,10 +5,7 @@ import ru.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamPathStorage extends AbstractPathStorage implements SerializationStrategy {
-    public ObjectStreamPathStorage(String dir) {
-        super(dir);
-    }
+public class ObjectStreamSerializer implements SerializationStrategy {
 
     @Override
     public void serialize(Resume resume, OutputStream outputStream) throws IOException {
@@ -24,15 +21,5 @@ public class ObjectStreamPathStorage extends AbstractPathStorage implements Seri
         } catch (ClassNotFoundException e) {
             throw new StorageException("Error read resume", null, e);
         }
-    }
-
-    @Override
-    protected void doWrite(Resume resume, OutputStream outputStream) throws IOException {
-        serialize(resume, outputStream);
-    }
-
-    @Override
-    protected Resume doRead(InputStream inputStream) throws IOException {
-       return deserialize(inputStream);
     }
 }
