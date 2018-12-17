@@ -1,4 +1,4 @@
-package ru.webapp.storage;
+package ru.webapp.storage.serialization;
 
 import ru.webapp.exception.StorageException;
 import ru.webapp.model.Resume;
