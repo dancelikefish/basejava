@@ -1,14 +1,9 @@
 package ru.webapp.storage;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import ru.webapp.model.Resume;
 import ru.webapp.storage.serialization.ObjectStreamSerializer;
-import ru.webapp.storage.serialization.SerializationStrategy;
 
-import java.io.*;
-import java.util.Objects;
+import java.io.File;
+import java.io.IOException;
 
 public class ObjectStreamFileSerializerTest extends AbstractStorageTest {
     public ObjectStreamFileSerializerTest() throws IOException {
