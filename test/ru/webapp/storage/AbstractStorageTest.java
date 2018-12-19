@@ -48,7 +48,7 @@ public class AbstractStorageTest {
         storage.save(R1);
         storage.save(R3);
     }
-
+//
     @Test
     public void clear() {
         storage.clear();
