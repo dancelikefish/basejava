@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class MainFile {
 
-    private static void walk(File file, int depth) throws IOException {
+    public static void walk(File file, int depth) throws IOException {
         File[] files = file.listFiles();
 
         for (File file1 : Objects.requireNonNull(files))
@@ -18,7 +18,7 @@ public class MainFile {
     }
 
     public static String repeat(String str, int times) {
-        return new String(new char[times]).replace("\0", str);
+        return new String(new char[times]).replace("\t", str);
     }
 
     public static void main(String[] a) throws IOException {

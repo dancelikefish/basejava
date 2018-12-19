@@ -1,7 +1,11 @@
 package ru.webapp.model;
 
 import ru.webapp.util.DateUtil;
+import ru.webapp.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,10 +14,13 @@ import java.util.Objects;
 
 import static ru.webapp.util.DateUtil.NOW;
 
-public class Organization implements Section, Serializable {
+public class Organization extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
-    private final Link homePage;
-    private final List<Position> positions;
+    private Link homePage;
+    private List<Position> positions;
+
+    public Organization() {
+    }
 
     public Organization(String name, String url, List<Position> positions) {
         this.homePage = new Link(name, url);
@@ -38,12 +45,18 @@ public class Organization implements Section, Serializable {
         return homePage.getName() + " " + homePage.getUrl() + "\n" + positions.toString();
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         private static final long serialVersionUID = 1L;
-        private final String title;
-        private final String description;
-        private final LocalDate startDate;
-        private final LocalDate finishDate;
+        private String title;
+        private String description;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate finishDate;
+
+        public Position() {
+        }
 
         public Position(int startYear, Month startMonth, String title, String description) {
             this(title, description, DateUtil.of(startYear, startMonth), NOW);

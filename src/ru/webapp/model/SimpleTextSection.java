@@ -2,12 +2,15 @@ package ru.webapp.model;
 
 import java.util.Objects;
 
-public class SimpleTextSection implements Section {
+public class SimpleTextSection extends Section {
     private static final long serialVersionUID = 1L;
-    private final String textSection;
+    private String textSection;
 
     public String getTextSection() {
         return textSection;
+    }
+
+    public SimpleTextSection() {
     }
 
     public SimpleTextSection(String textSection) {

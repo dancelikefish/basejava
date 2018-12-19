@@ -13,6 +13,9 @@ public class MainString {
         String str3 = "c";
         String str2 = ("ab" + str3).intern();
         System.out.println(str1 == str2);
+
+        String string = new String(new char[5]).replace("\0", str1);
+        System.out.println(string);
     }
 }
 
