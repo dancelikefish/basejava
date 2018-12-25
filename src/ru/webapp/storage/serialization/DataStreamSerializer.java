@@ -45,16 +45,12 @@ public class DataStreamSerializer implements SerializationStrategy {
                                 dos.writeUTF("");
                             } else
                                 dos.writeUTF(organization.getHomePage().getUrl());
-                            dos.writeInt(organization.getPositions().size());
-                            for (Organization.Position op : organization.getPositions()) {
-                                dos.writeUTF(op.getTitle());
-                                if (op.getDescription() == null) {
-                                    dos.writeUTF("");
-                                } else
-                                    dos.writeUTF(op.getDescription());
-                                writeLocalDate(op.getStartDate(), dos);
-                                writeLocalDate(op.getFinishDate(), dos);
-                            }
+                            writeCollection(dos, organization.getPositions(), position -> {
+                                dos.writeUTF(position.getTitle());
+                                dos.writeUTF(position.getDescription());
+                                writeLocalDate(position.getStartDate(), dos);
+                                writeLocalDate(position.getFinishDate(), dos);
+                            });
                         });
                         break;
                 }
