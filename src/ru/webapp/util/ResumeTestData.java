@@ -20,7 +20,7 @@ public class ResumeTestData {
         ResumeTestData.fillWholeResume(gKislin);
         System.out.println(gKislin.toString());
     }
-    
+
     public static void fillWholeResume(Resume resume) {
         resume.setContacts(ResumeTestData.fillContactSection(contacts));
 
