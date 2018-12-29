@@ -47,7 +47,10 @@ public class DataStreamSerializer implements SerializationStrategy {
                                 dos.writeUTF(organization.getHomePage().getUrl());
                             writeCollection(dos, organization.getPositions(), position -> {
                                 dos.writeUTF(position.getTitle());
-                                dos.writeUTF(position.getDescription());
+                                if (position.getDescription() == null) {
+                                    dos.writeUTF("");
+                                } else
+                                    dos.writeUTF(position.getDescription());
                                 writeLocalDate(position.getStartDate(), dos);
                                 writeLocalDate(position.getFinishDate(), dos);
                             });
