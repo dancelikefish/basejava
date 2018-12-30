@@ -42,6 +42,7 @@ public class MainConcurrency {
             }
         });
         System.out.println(counter);
+        LazySingleton.getInstance();
     }
 
     private void incr() {
