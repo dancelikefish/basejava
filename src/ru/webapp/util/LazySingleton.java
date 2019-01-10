@@ -6,15 +6,20 @@ public class LazySingleton {
     private LazySingleton() {
     }
 
-    public static LazySingleton getInstance() {
-        if (INSTANCE == null) {
-            synchronized (LazySingleton.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new LazySingleton();
-                }
-            }
-        }
-        return INSTANCE;
+    public static class LazySingletonHolder {
+        private static final LazySingleton INSTANCE = new LazySingleton();
     }
 
+    public static LazySingleton getInstance() {
+        return LazySingleton.INSTANCE;
+    }
 }
+//        if (INSTANCE == null) {
+//            synchronized (LazySingleton.class) {
+//                if (INSTANCE == null) {
+//                    INSTANCE = new LazySingleton();
+//                }
+//            }
+//        }
+//        return INSTANCE;
+//    }
