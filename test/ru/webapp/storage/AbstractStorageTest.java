@@ -3,6 +3,7 @@ package ru.webapp.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.webapp.Config;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class AbstractStorageTest {
     protected Storage storage;
-    protected static final File STORAGE_DIR = new File("C:\\Users\\Admin\\IdeaProjects\\basejava\\storage");
+    protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
 
     protected static final String UUID1 = "uuid1";
     protected static final String UUID2 = "uuid2";
