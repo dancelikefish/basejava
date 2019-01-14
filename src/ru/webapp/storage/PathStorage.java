@@ -60,7 +60,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             Files.delete(path);
         } catch (IOException e) {
-            throw new StorageException("Delete path error", null);
+            throw new StorageException("Delete path error", e);
         }
     }
 
@@ -80,7 +80,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try (Stream<Path> paths = Files.walk(Paths.get(directory.toString()))) {
             paths.filter(Files::isRegularFile).forEach(path -> list.add(getFromStorage(path)));
         } catch (IOException e) {
-            throw new StorageException("CopyList error ", null);
+            throw new StorageException("CopyList error ", e);
         }
         return list;
     }
@@ -90,7 +90,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             Files.list(directory).forEach(this::deleteFromStorage);
         } catch (IOException e) {
-            throw new StorageException("Path delete error ", null);
+            throw new StorageException("Path delete error ", e);
         }
     }
 
@@ -99,7 +99,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return (int) Files.list(Paths.get(directory.toString())).count();
         } catch (IOException e) {
-            throw new StorageException("Path size error ", null);
+            throw new StorageException("Path size error ", e);
         }
     }
 }
