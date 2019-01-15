@@ -18,15 +18,14 @@ public class HW12 {
     }
 
     private static int minValue(int[] values) {
-        List<Integer> uniqueValues = new ArrayList<>();
-        Arrays.stream(values).distinct().sorted().forEach(uniqueValues::add);
-        return uniqueValues.stream().reduce(0, (a, b) -> a * 10 + b);
+
+        return Arrays.stream(values).distinct().sorted().reduce(0, (a, b) -> a * 10 + b);
     }
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
         int sum = integers.stream().mapToInt(i -> i).sum();
         System.out.println("Sum = " + sum);
-        integers.removeIf(i -> (sum % 2 == 0) == (i % 2 == 0));
+        integers.removeIf(i -> (sum % 2 == i % 2));
         return integers;
     }
 }
