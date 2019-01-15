@@ -2,6 +2,7 @@ package ru.webapp.storage;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import ru.webapp.sql.SqlStorageTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -14,8 +15,8 @@ import org.junit.runners.Suite;
         ObjectStreamFileSerializerTest.class,
         XmlStreamPathSerializerTest.class,
         JsonStreamPathSerializerTest.class,
-        DataStreamPathSerializerTest.class
-        //SqlStorageTest.class
+        DataStreamPathSerializerTest.class,
+        SqlStorageTest.class
 })
 
 public class AllStorageTest {
