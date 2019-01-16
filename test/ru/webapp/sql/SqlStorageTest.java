@@ -2,6 +2,7 @@ package ru.webapp.sql;
 
 import ru.webapp.Config;
 import ru.webapp.storage.AbstractStorageTest;
+import ru.webapp.storage.SqlStorage;
 
 public class SqlStorageTest extends AbstractStorageTest {
 

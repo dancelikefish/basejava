@@ -1,5 +1,7 @@
 package ru.webapp.sql;
 
+import ru.webapp.exception.StorageException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,12 +13,12 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public void execute(String statement, SqlExecutor executor) {
+    public <T> T execute(String statement, SqlExecutor<T> executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(statement)) {
-            executor.execute(ps);
+            return executor.execute(ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new StorageException(e);
         }
     }
 }
