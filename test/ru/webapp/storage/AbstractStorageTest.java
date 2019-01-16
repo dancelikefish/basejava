@@ -11,22 +11,29 @@ import ru.webapp.model.Resume;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class AbstractStorageTest {
     protected Storage storage;
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
-    protected static final String UUID1 = "uuid1";
-    protected static final String UUID2 = "uuid2";
-    protected static final String UUID3 = "uuid3";
-    protected static final String UUID4 = "uuid4";
-    protected static final String UUID5 = "uuid5";
+    protected static final String UUID1 = UUID.randomUUID().toString();
+    protected static final String UUID2 = UUID.randomUUID().toString();
+    protected static final String UUID3 = UUID.randomUUID().toString();
+    protected static final String UUID4 = UUID.randomUUID().toString();
+    protected static final String UUID5 = UUID.randomUUID().toString();
 
-    protected static final Resume R1 = new Resume(UUID1, UUID1);
-    protected static final Resume R2 = new Resume(UUID2, UUID2);
-    protected static final Resume R3 = new Resume(UUID3, UUID3);
-    protected static final Resume R4 = new Resume(UUID4, UUID4);
-    protected static final Resume R5 = new Resume(UUID5, UUID5);
+    protected static final String NAME1 = "Test Name 1";
+    protected static final String NAME2 = "Test Name 2";
+    protected static final String NAME3 = "Test Name 3";
+    protected static final String NAME4 = "Test Name 4";
+    protected static final String NAME5 = "Test Name 5";
+
+    protected static final Resume R1 = new Resume(UUID1, NAME1);
+    protected static final Resume R2 = new Resume(UUID2, NAME2);
+    protected static final Resume R3 = new Resume(UUID3, NAME3);
+    protected static final Resume R4 = new Resume(UUID4, NAME4);
+    protected static final Resume R5 = new Resume(UUID5, NAME5);
     protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
     static {

@@ -58,6 +58,7 @@ public class Resume extends Section implements Serializable {
     public Section getSection(SectionType type) {
         return sections.get(type);
     }
+
     public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }

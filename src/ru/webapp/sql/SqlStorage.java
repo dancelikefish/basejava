@@ -1,6 +1,8 @@
 package ru.webapp.sql;
 
 
+import org.postgresql.util.PSQLException;
+import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 import ru.webapp.storage.Storage;
@@ -29,7 +31,11 @@ public class SqlStorage implements Storage {
         sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", ps -> {
             ps.setString(1, resume.getUuid());
             ps.setString(2, resume.getFullName());
-            ps.execute();
+            try {
+                ps.executeUpdate();
+            } catch (PSQLException e) {
+                throw new ExistStorageException(resume.getUuid());
+            }
         });
     }
 
@@ -38,7 +44,9 @@ public class SqlStorage implements Storage {
         sqlHelper.execute("UPDATE resume SET full_name = ? WHERE uuid = ?", ps -> {
             ps.setString(2, resume.getFullName());
             ps.setString(1, resume.getUuid());
-            ps.execute();
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(resume.getUuid());
+            }
         });
     }
 
@@ -60,7 +68,9 @@ public class SqlStorage implements Storage {
     public void delete(String uuid) {
         sqlHelper.execute("DELETE FROM resume WHERE uuid = ?", ps -> {
             ps.setString(1, uuid);
-            ps.execute();
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(uuid);
+            }
         });
     }
 
