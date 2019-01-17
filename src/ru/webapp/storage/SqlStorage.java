@@ -1,8 +1,6 @@
 package ru.webapp.storage;
 
 
-import org.postgresql.util.PSQLException;
-import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
 import ru.webapp.model.Resume;
 import ru.webapp.sql.SqlHelper;
@@ -27,16 +25,10 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", ps -> {
+        sqlHelper.<Void>execute("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", ps -> {
             ps.setString(1, resume.getUuid());
             ps.setString(2, resume.getFullName());
-            try {
-                ps.executeUpdate();
-            } catch (PSQLException e) {
-                if (e.getSQLState().equals("23505")) {
-                    throw new ExistStorageException(resume.getUuid());
-                }
-            }
+            ps.execute();
             return null;
         });
     }
@@ -79,7 +71,7 @@ public class SqlStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         List<Resume> resumes = new ArrayList<>();
-        return sqlHelper.execute("SELECT * FROM resume ORDER BY full_name", ps -> {
+        return sqlHelper.execute("SELECT * FROM resume ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String uuid = rs.getString(1);
@@ -94,8 +86,7 @@ public class SqlStorage implements Storage {
     public int size() {
         return sqlHelper.execute("SELECT COUNT(*) AS total FROM resume", ps -> {
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getInt("total");
+            return rs.next() ? rs.getInt("total") : 0;
         });
     }
 }
