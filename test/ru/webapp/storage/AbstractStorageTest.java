@@ -6,12 +6,12 @@ import org.junit.Test;
 import ru.webapp.Config;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
+import ru.webapp.model.ContactType;
 import ru.webapp.model.Resume;
+import ru.webapp.util.ResumeTestData;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class AbstractStorageTest {
     protected Storage storage;
@@ -42,6 +42,12 @@ public class AbstractStorageTest {
 //        ResumeTestData.fillWholeResume(R3);
 //        ResumeTestData.fillWholeResume(R4);
 //        ResumeTestData.fillWholeResume(R5);
+        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+        R1.setContacts(ResumeTestData.fillContactSection(contacts));
+        R2.setContacts(ResumeTestData.fillContactSection(contacts));
+        R3.setContacts(ResumeTestData.fillContactSection(contacts));
+        R4.setContacts(ResumeTestData.fillContactSection(contacts));
+        R5.setContacts(ResumeTestData.fillContactSection(contacts));
     }
 
     public AbstractStorageTest(Storage storage) {
