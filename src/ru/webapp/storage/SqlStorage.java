@@ -45,7 +45,7 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
-            deleteContacts(resume);
+            deleteContacts(resume, connection);
             insertContacts(resume, connection);
             return null;
         });
@@ -66,8 +66,10 @@ public class SqlStorage implements Storage {
             Resume resume = new Resume(uuid, resultSet.getString("full_name"));
             do {
                 String value = resultSet.getString("value");
-                ContactType contactType = ContactType.valueOf(resultSet.getString("type"));
-                resume.addContact(contactType, value);
+                if (value != null) {
+                    ContactType contactType = ContactType.valueOf(resultSet.getString("type"));
+                    resume.addContact(contactType, value);
+                }
             } while (resultSet.next());
 
             return resume;
@@ -96,9 +98,7 @@ public class SqlStorage implements Storage {
             while (rs.next()) {
                 String uuid = rs.getString(1);
                 String fullName = rs.getString(2);
-                if (notDuplicatedResumes.get(uuid) == null) {
-                    notDuplicatedResumes.put(uuid, new Resume(uuid, fullName));
-                }
+                notDuplicatedResumes.putIfAbsent(uuid, new Resume(uuid, fullName));
                 String value = rs.getString("value");
                 if (value != null) {
                     ContactType contactType = ContactType.valueOf(rs.getString("type"));
@@ -129,11 +129,10 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void deleteContacts(Resume resume) {
-        sqlHelper.execute("DELETE FROM contact WHERE resume_uuid = ?", ps -> {
+    private void deleteContacts(Resume resume, Connection connection) throws SQLException {
+        try (PreparedStatement ps = connection.prepareStatement("DELETE FROM contact WHERE resume_uuid = ?")) {
             ps.setString(1, resume.getUuid());
             ps.execute();
-            return null;
-        });
+        }
     }
 }
