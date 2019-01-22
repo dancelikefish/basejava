@@ -7,7 +7,10 @@ import ru.webapp.model.Resume;
 import ru.webapp.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     private final SqlHelper sqlHelper;
@@ -65,11 +68,7 @@ public class SqlStorage implements Storage {
             }
             Resume resume = new Resume(uuid, resultSet.getString("full_name"));
             do {
-                String value = resultSet.getString("value");
-                if (value != null) {
-                    ContactType contactType = ContactType.valueOf(resultSet.getString("type"));
-                    resume.addContact(contactType, value);
-                }
+                addContact(resultSet, resume);
             } while (resultSet.next());
 
             return resume;
@@ -98,12 +97,8 @@ public class SqlStorage implements Storage {
             while (rs.next()) {
                 String uuid = rs.getString(1);
                 String fullName = rs.getString(2);
-                notDuplicatedResumes.putIfAbsent(uuid, new Resume(uuid, fullName));
-                String value = rs.getString("value");
-                if (value != null) {
-                    ContactType contactType = ContactType.valueOf(rs.getString("type"));
-                    notDuplicatedResumes.get(uuid).addContact(contactType, value);
-                }
+                Resume resume = notDuplicatedResumes.computeIfAbsent(uuid, s -> new Resume(uuid, fullName));
+                addContact(rs, resume);
             }
             return new ArrayList<>(notDuplicatedResumes.values());
         });
@@ -133,6 +128,14 @@ public class SqlStorage implements Storage {
         try (PreparedStatement ps = connection.prepareStatement("DELETE FROM contact WHERE resume_uuid = ?")) {
             ps.setString(1, resume.getUuid());
             ps.execute();
+        }
+    }
+    
+    private void addContact(ResultSet rs, Resume resume) throws SQLException {
+        String value = rs.getString("value");
+        if (value != null) {
+            ContactType contactType = ContactType.valueOf(rs.getString("type"));
+            resume.addContact(contactType, value);
         }
     }
 }
