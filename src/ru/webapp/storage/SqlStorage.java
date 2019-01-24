@@ -2,8 +2,7 @@ package ru.webapp.storage;
 
 
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.model.ContactType;
-import ru.webapp.model.Resume;
+import ru.webapp.model.*;
 import ru.webapp.sql.SqlHelper;
 
 import java.sql.*;
@@ -33,9 +32,35 @@ public class SqlStorage implements Storage {
                         ps.execute();
                     }
                     insertContacts(resume, connection);
+                    insertSections(resume, connection);
                     return null;
                 }
         );
+    }
+    //TODO
+    private void insertSections(Resume resume, Connection connection) {
+        try (PreparedStatement ps = connection.prepareStatement("INSERT INTO section (section_type, value, resume_uuid) VALUES (?,?,?)")) {
+            for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
+                ps.setString(1, entry.getKey().name());
+                ps.setString(2, entry.getValue().toString());
+                ps.setString(3, resume.getUuid());
+//                if (entry.getKey().name().equals(SectionType.ACHIEVEMENT.name())
+//                        || entry.getKey().name().equals(SectionType.QUALIFICATIONS.name())) {
+//                    List<String> listSection = ((ListSection) entry.getValue()).getListSection();
+//                    for (String s : listSection) {
+//                        ps.setString(2, s + "\n");
+//                        ps.setString(3, resume.getUuid());
+//                    }
+//                } else {
+//                    ps.setString(2, ((SimpleTextSection) entry.getValue()).getTextSection());
+//                    ps.setString(3, resume.getUuid());
+//                }
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -88,19 +113,28 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.execute("SELECT * FROM resume r\n" +
-                "LEFT JOIN contact c\n" +
-                "ON r.uuid = c.resume_uuid\n" +
-                "ORDER BY full_name, uuid", ps -> {
-            ResultSet rs = ps.executeQuery();
-            Map<String, Resume> notDuplicatedResumes = new LinkedHashMap<>();
-            while (rs.next()) {
-                String uuid = rs.getString(1);
-                String fullName = rs.getString(2);
-                Resume resume = notDuplicatedResumes.computeIfAbsent(uuid, s -> new Resume(uuid, fullName));
-                addContact(rs, resume);
+        return sqlHelper.transactionalExecute(connection -> {
+            Map<String, Resume> resumes = new LinkedHashMap<>();
+
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM resume ORDER BY full_name, uuid")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String uuid = rs.getString(1);
+                    String fullName = rs.getString(2);
+                    resumes.put(uuid, new Resume(uuid, fullName));
+                }
             }
-            return new ArrayList<>(notDuplicatedResumes.values());
+
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM contact")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    ContactType type = ContactType.valueOf(rs.getString("type"));
+                    String value = rs.getString("value");
+                    String uuid = rs.getString("resume_uuid");
+                    resumes.get(uuid).addContact(type, value);
+                }
+            }
+            return new ArrayList<>(resumes.values());
         });
     }
 
@@ -130,7 +164,7 @@ public class SqlStorage implements Storage {
             ps.execute();
         }
     }
-    
+
     private void addContact(ResultSet rs, Resume resume) throws SQLException {
         String value = rs.getString("value");
         if (value != null) {
