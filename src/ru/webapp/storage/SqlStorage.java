@@ -41,9 +41,12 @@ public class SqlStorage implements Storage {
     private void insertSections(Resume resume, Connection connection) {
         try (PreparedStatement ps = connection.prepareStatement("INSERT INTO section (section_type, value, resume_uuid) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
-                ps.setString(1, entry.getKey().name());
-                ps.setString(2, entry.getValue().toString());
-                ps.setString(3, resume.getUuid());
+                if (entry.getValue() != null) {
+                    ps.setString(1, entry.getKey().name());
+                    ps.setString(2, entry.getValue().toString());
+                    ps.setString(3, resume.getUuid());
+                    ps.addBatch();
+                }
 //                if (entry.getKey().name().equals(SectionType.ACHIEVEMENT.name())
 //                        || entry.getKey().name().equals(SectionType.QUALIFICATIONS.name())) {
 //                    List<String> listSection = ((ListSection) entry.getValue()).getListSection();
@@ -55,7 +58,6 @@ public class SqlStorage implements Storage {
 //                    ps.setString(2, ((SimpleTextSection) entry.getValue()).getTextSection());
 //                    ps.setString(3, resume.getUuid());
 //                }
-                ps.addBatch();
             }
             ps.executeBatch();
         } catch (SQLException e) {
