@@ -36,10 +36,12 @@ create table if not exists section
   section_type text not null,
   value text not null,
   resume_uuid char(36) not null
+    constraint section_resume_uuid_fk
+      references resume
+      on update restrict on delete cascade
 );
 
 alter table section owner to postgres;
 
-create unique index if not exists section_id_uindex
+create unique index if not exists section_id_index
   on section (id);
-

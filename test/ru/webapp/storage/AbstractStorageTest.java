@@ -6,10 +6,7 @@ import org.junit.Test;
 import ru.webapp.Config;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.model.ContactType;
-import ru.webapp.model.Resume;
-import ru.webapp.model.SectionType;
-import ru.webapp.model.SimpleTextSection;
+import ru.webapp.model.*;
 import ru.webapp.util.ResumeTestData;
 
 import java.io.File;
@@ -45,13 +42,32 @@ public class AbstractStorageTest {
 //        ResumeTestData.fillWholeResume(R4);
 //        ResumeTestData.fillWholeResume(R5);
         Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-//        R1.setContacts(ResumeTestData.fillContactSection(contacts));
-//        R2.setContacts(ResumeTestData.fillContactSection(contacts));
-//        R3.setContacts(ResumeTestData.fillContactSection(contacts));
-//        R4.setContacts(ResumeTestData.fillContactSection(contacts));
-//        R5.setContacts(ResumeTestData.fillContactSection(contacts));
+        List<String> list = new ArrayList<>();
+        R1.setContacts(ResumeTestData.fillContactSection(contacts));
+        R2.setContacts(ResumeTestData.fillContactSection(contacts));
+        R3.setContacts(ResumeTestData.fillContactSection(contacts));
+        R4.setContacts(ResumeTestData.fillContactSection(contacts));
+        R5.setContacts(ResumeTestData.fillContactSection(contacts));
+
         R1.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-//        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+
+        R2.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R2.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
+        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+
+        R3.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        R3.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
+        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+
+        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+        R4.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
+        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
     }
 
     public AbstractStorageTest(Storage storage) {
