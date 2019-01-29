@@ -157,31 +157,28 @@ public class SqlStorage implements Storage {
         try (PreparedStatement ps = connection.prepareStatement("INSERT INTO section (section_type, value, resume_uuid) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
                 SectionType sectionType = entry.getKey();
+                ps.setString(1, entry.getKey().name());
                 switch (sectionType) {
                     case PERSONAL:
                     case OBJECTIVE:
-                        ps.setString(1, entry.getKey().name());
                         ps.setString(2, ((SimpleTextSection) entry.getValue()).getTextSection());
-                        ps.setString(3, resume.getUuid());
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
                         List<String> listSection = ((ListSection) entry.getValue()).getListSection();
                         String stringList = String.join("\n", listSection);
-                        ps.setString(1, entry.getKey().name());
                         ps.setString(2, stringList);
-                        ps.setString(3, resume.getUuid());
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
                         break;
                 }
+                ps.setString(3, resume.getUuid());
                 ps.addBatch();
             }
             ps.executeBatch();
         }
     }
-
 
     private void deleteContacts(Resume resume, Connection connection) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement("DELETE FROM contact WHERE resume_uuid = ?")) {
