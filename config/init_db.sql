@@ -8,7 +8,7 @@ create table if not exists resume
 
 alter table resume
   owner to postgres;
-
+-----
 create table if not exists contact
 (
   id          serial   not null
@@ -25,7 +25,7 @@ create table if not exists contact
 alter table contact
   owner to postgres;
 
-create index contact_uuid_type_index
+create unique index contact_uuid_type_index
   on contact (resume_uuid, type);
 ------
 create table if not exists section
@@ -43,5 +43,5 @@ create table if not exists section
 
 alter table section owner to postgres;
 
-create unique index if not exists section_id_index
-  on section (id);
+create index if not exists section_uuid_type_index
+  on section (resume_uuid, section_type);

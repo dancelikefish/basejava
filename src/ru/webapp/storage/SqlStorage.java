@@ -153,25 +153,32 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void insertSections(Resume resume, Connection connection) {
+    private void insertSections(Resume resume, Connection connection) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement("INSERT INTO section (section_type, value, resume_uuid) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
-                ps.setString(1, entry.getKey().name());
-                if (entry.getKey().name().equals(SectionType.ACHIEVEMENT.name())
-                        || entry.getKey().name().equals(SectionType.QUALIFICATIONS.name())) {
-                    List<String> listSection = ((ListSection) entry.getValue()).getListSection();
-                    String stringList = String.join("\n", listSection);
-                    ps.setString(2, stringList);
-                    ps.setString(3, resume.getUuid());
-                } else {
-                    ps.setString(2, ((SimpleTextSection) entry.getValue()).getTextSection());
-                    ps.setString(3, resume.getUuid());
+                SectionType sectionType = entry.getKey();
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        ps.setString(1, entry.getKey().name());
+                        ps.setString(2, ((SimpleTextSection) entry.getValue()).getTextSection());
+                        ps.setString(3, resume.getUuid());
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        List<String> listSection = ((ListSection) entry.getValue()).getListSection();
+                        String stringList = String.join("\n", listSection);
+                        ps.setString(1, entry.getKey().name());
+                        ps.setString(2, stringList);
+                        ps.setString(3, resume.getUuid());
+                        break;
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        break;
                 }
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -199,16 +206,23 @@ public class SqlStorage implements Storage {
     }
 
     private void addSection(ResultSet rs, Resume resume) throws SQLException {
+        String value = rs.getString("value");
         SectionType sectionType = SectionType.valueOf(rs.getString("section_type"));
-        if (sectionType.equals(SectionType.ACHIEVEMENT)
-                || sectionType.equals(SectionType.QUALIFICATIONS)) {
-            String[] values = rs.getString("value").split("\n");
-            List<String> list = Arrays.asList(values);
-            resume.addSection(sectionType, new ListSection(list));
-        } else {
-            String value = rs.getString("value");
-            if (value != null) {
-                resume.addSection(sectionType, new SimpleTextSection(value));
+        if (value != null) {
+            switch (sectionType) {
+                case PERSONAL:
+                case OBJECTIVE:
+                    resume.addSection(sectionType, new SimpleTextSection(value));
+                    break;
+                case ACHIEVEMENT:
+                case QUALIFICATIONS:
+                    String[] values = value.split("\n");
+                    List<String> list = Arrays.asList(values);
+                    resume.addSection(sectionType, new ListSection(list));
+                    break;
+                case EXPERIENCE:
+                case EDUCATION:
+                    break;
             }
         }
     }
