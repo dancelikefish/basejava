@@ -6,68 +6,42 @@ import org.junit.Test;
 import ru.webapp.Config;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.model.*;
+import ru.webapp.model.Resume;
 import ru.webapp.util.ResumeTestData;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class AbstractStorageTest {
     protected Storage storage;
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
+    public static final String UUID1 = UUID.randomUUID().toString();
+    public static final String UUID2 = UUID.randomUUID().toString();
+    public static final String UUID3 = UUID.randomUUID().toString();
+    public static final String UUID4 = UUID.randomUUID().toString();
+    public static final String UUID5 = UUID.randomUUID().toString();
 
-    protected static final String UUID1 = UUID.randomUUID().toString();
-    protected static final String UUID2 = UUID.randomUUID().toString();
-    protected static final String UUID3 = UUID.randomUUID().toString();
-    protected static final String UUID4 = UUID.randomUUID().toString();
-    protected static final String UUID5 = UUID.randomUUID().toString();
+    public static final String NAME1 = "Test Name 1";
+    public static final String NAME2 = "Test Name 2";
+    public static final String NAME3 = "Test Name 3";
+    public static final String NAME4 = "Test Name 4";
+    public static final String NAME5 = "Test Name 5";
 
-    protected static final String NAME1 = "Test Name 1";
-    protected static final String NAME2 = "Test Name 2";
-    protected static final String NAME3 = "Test Name 3";
-    protected static final String NAME4 = "Test Name 4";
-    protected static final String NAME5 = "Test Name 5";
-
-    protected static final Resume R1 = new Resume(UUID1, NAME1);
-    protected static final Resume R2 = new Resume(UUID2, NAME2);
-    protected static final Resume R3 = new Resume(UUID3, NAME3);
-    protected static final Resume R4 = new Resume(UUID4, NAME4);
-    protected static final Resume R5 = new Resume(UUID5, NAME5);
-    protected static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
+    public static final Resume R1 = new Resume(UUID1, NAME1);
+    public static final Resume R2 = new Resume(UUID2, NAME2);
+    public static final Resume R3 = new Resume(UUID3, NAME3);
+    public static final Resume R4 = new Resume(UUID4, NAME4);
+    public static final Resume R5 = new Resume(UUID5, NAME5);
+    public static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
     static {
-//        ResumeTestData.fillWholeResume(R1);
-//        ResumeTestData.fillWholeResume(R2);
-//        ResumeTestData.fillWholeResume(R3);
-//        ResumeTestData.fillWholeResume(R4);
-//        ResumeTestData.fillWholeResume(R5);
-        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-        List<String> list = new ArrayList<>();
-        R1.setContacts(ResumeTestData.fillContactSection(contacts));
-        R2.setContacts(ResumeTestData.fillContactSection(contacts));
-        R3.setContacts(ResumeTestData.fillContactSection(contacts));
-        R4.setContacts(ResumeTestData.fillContactSection(contacts));
-        R5.setContacts(ResumeTestData.fillContactSection(contacts));
-
-        R1.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R1.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
-
-        R2.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R2.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
-        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
-
-        R3.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        R3.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
-        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
-
-        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
-        R4.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list)));
-        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
-        R4.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list)));
+        ResumeTestData.fillWholeResume(R1);
+        ResumeTestData.fillWholeResume(R2);
+        ResumeTestData.fillWholeResume(R3);
+        ResumeTestData.fillWholeResume(R4);
+        ResumeTestData.fillWholeResume(R5);
     }
 
     public AbstractStorageTest(Storage storage) {

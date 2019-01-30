@@ -3,17 +3,14 @@ package ru.webapp.util;
 import ru.webapp.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ResumeTestData {
-    private static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private static List<String> achievements = new ArrayList<>();
-    private static List<String> qualifications = new ArrayList<>();
-    private static List<Organization> occupationPlaces = new ArrayList<>();
-    private static List<Organization> educationPlaces = new ArrayList<>();
+    public static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    public static List<String> achievements = new ArrayList<>();
+    public static List<String> qualifications = new ArrayList<>();
+    public static List<Organization> occupationPlaces = new ArrayList<>();
+    public static List<Organization> educationPlaces = new ArrayList<>();
 
     public static void main(String[] args) {
         Resume gKislin = new Resume("Grigoriy Kislin");
