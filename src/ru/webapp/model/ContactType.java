@@ -3,8 +3,18 @@ package ru.webapp.model;
 public enum ContactType {
 
     CELLPHONENUMBER("Тел.: "),
-    SKYPE("Skype: "),
-    MAIL("Почта: "),
+    SKYPE("Skype: ") {
+        @Override
+        public String toHtml(String value) {
+            return "<a href='skype: "+ value + "'>" + value + "</a>";
+        }
+    },
+    MAIL("Почта: ") {
+        @Override
+        public String toHtml(String value) {
+            return "<a href='mailto: "+ value + "'>" + value + "</a>";
+        }
+    },
     LINKEDIN("LinkedIn: "),
     GITHUB("GitHub: "),
     STACKOVERFLOW("StackOverflow: "),
@@ -19,4 +29,9 @@ public enum ContactType {
     public String getTitle() {
         return title;
     }
+
+    public String toHtml(String value) {
+        return (value == null) ? "" : title + ": " + value;
+    }
+
 }
