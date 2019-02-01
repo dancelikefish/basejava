@@ -1,6 +1,7 @@
 package ru.webapp.web;
 
 import ru.webapp.Config;
+import ru.webapp.model.ContactType;
 import ru.webapp.model.Resume;
 import ru.webapp.storage.Storage;
 
@@ -20,7 +21,21 @@ public class ResumeServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        String uuid = request.getParameter("uuid");
+        String fullName = request.getParameter("fullName");
+        Resume resume = storage.get(uuid);
+        resume.setFullName(fullName);
+        for (ContactType contactType : ContactType.values()) {
+            String value = request.getParameter(contactType.name());
+            if (value != null && value.trim().length() != 0) {
+                resume.addContact(contactType, value);
+            } else {
+                resume.getContacts().remove(contactType);
+            }
+        }
+        storage.update(resume);
+        response.sendRedirect("resume");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

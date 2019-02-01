@@ -50,7 +50,7 @@ public class Organization extends Section implements Serializable {
 
     @Override
     public String toString() {
-        return homePage.getName() + " " + homePage.getUrl() + "\n" + positions.toString();
+        return homePage.getName() + "\n" + homePage.getUrl() + "\n" + positions.toString();
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -102,7 +102,7 @@ public class Organization extends Section implements Serializable {
 
         @Override
         public String toString() {
-            return title + "\n" + description + "\n" + startDate + " " + finishDate;
+            return title + "\n" + description + "\n" + startDate + "\n" + finishDate;
         }
 
         @Override
