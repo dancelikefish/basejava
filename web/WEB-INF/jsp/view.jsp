@@ -1,3 +1,4 @@
+<%@ page import="ru.webapp.model.SimpleTextSection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -18,6 +19,25 @@
                 <%=contactEntry.getKey().toHtml(contactEntry.getValue())%><br/>
         </c:forEach>
     <p>
+    <hr>
+    <h3>
+        <c:forEach var="sectionEntry" items="${resume.sections}">
+            <jsp:useBean id="sectionEntry"
+                         type="java.util.Map.Entry<ru.webapp.model.SectionType, ru.webapp.model.Section>"/>
+            <c:set var="sectionType" value="${sectionEntry.key}"/>
+            <c:set var="section" value="${sectionEntry.value}"/>
+            <jsp:useBean id="section" type="ru.webapp.model.Section"/>
+            <c:choose>
+                <c:when test="${sectionType == 'OBJECTIVE'}">
+                    <%=((SimpleTextSection) section).getTextSection()%>
+                </c:when>
+                <c:when test="${sectionType == 'PERSONAL'}">
+                    <%=((SimpleTextSection) section).getTextSection()%>
+                </c:when>
+                <c:when test="${sectionType == ''}">
+            </c:choose>
+        </c:forEach>
+    </h3>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

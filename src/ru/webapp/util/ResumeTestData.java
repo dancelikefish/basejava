@@ -15,7 +15,40 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume gKislin = new Resume("Grigoriy Kislin");
         ResumeTestData.fillWholeResume(gKislin);
-        System.out.println(gKislin.toString());
+
+        for (Map.Entry<SectionType, Section> entry : gKislin.getSections().entrySet()) {
+            switch (entry.getKey()) {
+
+                case PERSONAL:
+                case OBJECTIVE:
+                    System.out.println(entry.getKey().getTitle());
+                    System.out.println(entry.getValue());
+                    break;
+                case ACHIEVEMENT:
+                case QUALIFICATIONS:
+                    System.out.println(entry.getKey().getTitle());
+                    List<String> listSection = ((ListSection) entry.getValue()).getListSection();
+                    for (String s : listSection) {
+                        System.out.println(s);
+                    }
+                    break;
+                case EXPERIENCE:
+                case EDUCATION:
+                    System.out.println(entry.getKey().getTitle());
+                    List<Organization> listOgr = ((OrganizationSection) entry.getValue()).getOrganizations();
+                    for (Organization o : listOgr) {
+                        System.out.println(o.getHomePage().getUrl() + " " + o.getHomePage().getUrl());
+                        soutPositions(o.getPositions());
+                    }
+                    break;
+            }
+        }
+    }
+
+    private static void soutPositions(List<Organization.Position> positions) {
+        for (Organization.Position p : positions) {
+            System.out.println(p.getTitle() + " " + p.getDescription() + " " + p.getStartDate() + " " + p.getFinishDate());
+        }
     }
 
     public static void fillWholeResume(Resume resume) {
