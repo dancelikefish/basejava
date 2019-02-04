@@ -1,4 +1,6 @@
 <%@ page import="ru.webapp.model.SimpleTextSection" %>
+<%@ page import="ru.webapp.model.ListSection" %>
+<%@ page import="ru.webapp.model.OrganizationSection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -20,24 +22,41 @@
         </c:forEach>
     <p>
     <hr>
-    <h3>
-        <c:forEach var="sectionEntry" items="${resume.sections}">
-            <jsp:useBean id="sectionEntry"
-                         type="java.util.Map.Entry<ru.webapp.model.SectionType, ru.webapp.model.Section>"/>
-            <c:set var="sectionType" value="${sectionEntry.key}"/>
-            <c:set var="section" value="${sectionEntry.value}"/>
-            <jsp:useBean id="section" type="ru.webapp.model.Section"/>
-            <c:choose>
-                <c:when test="${sectionType == 'OBJECTIVE'}">
-                    <%=((SimpleTextSection) section).getTextSection()%>
-                </c:when>
-                <c:when test="${sectionType == 'PERSONAL'}">
-                    <%=((SimpleTextSection) section).getTextSection()%>
-                </c:when>
-                <c:when test="${sectionType == ''}">
-            </c:choose>
-        </c:forEach>
-    </h3>
+    <c:forEach var="sectionEntry" items="${resume.sections}">
+        <jsp:useBean id="sectionEntry"
+                     type="java.util.Map.Entry<ru.webapp.model.SectionType, ru.webapp.model.Section>"/>
+        <c:set var="sectionType" value="${sectionEntry.key}"/>
+        <c:set var="section" value="${sectionEntry.value}"/>
+        <jsp:useBean id="section" type="ru.webapp.model.Section"/>
+        <h2>${sectionType.title}</h2>
+
+        <c:choose>
+            <c:when test="${sectionType == 'OBJECTIVE' || sectionType == 'PERSONAL'}">
+                <li><%=((SimpleTextSection) section).getTextSection()%></li>
+            </c:when>
+            <c:when test="${sectionType == 'ACHIEVEMENT' || sectionType == 'QUALIFICATIONS'}">
+                <c:forEach var="text" items="<%=((ListSection) section).getListSection()%>">
+                    <li>${text}</li>
+                </c:forEach>
+            </c:when>
+            <c:when test="${sectionType == 'EXPERIENCE' || sectionType == 'EDUCATION'}">
+                <c:forEach var="organization" items="<%=((OrganizationSection) section).getOrganizations()%>">
+                    <c:choose>
+                        <c:when test="${empty organization.homePage.url}">
+                            <h3>${organization.homePage.name}</h3>
+                        </c:when>
+                        <c:otherwise>
+                            <h3><a href="${organization.homePage.url}">${organization.homePage.name}</a></h3>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="position" items="${organization.positions}">
+                        <jsp:useBean id="position" type="ru.webapp.model.Organization.Position"/>
+                        <strong>${position.title}</strong><br>${position.description}
+                    </c:forEach>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+    </c:forEach>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
