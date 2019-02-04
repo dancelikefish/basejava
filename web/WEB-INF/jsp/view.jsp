@@ -1,8 +1,10 @@
 <%@ page import="ru.webapp.model.SimpleTextSection" %>
 <%@ page import="ru.webapp.model.ListSection" %>
 <%@ page import="ru.webapp.model.OrganizationSection" %>
+<%@ page import="ru.webapp.util.HtmlUtil"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
@@ -12,7 +14,7 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
-<section>
+<section style="width: 900px; margin: auto">
     <h2>${resume.fullName}&nbsp;<a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></h2>
     <p>
         <c:forEach var="contactEntry" items="${resume.contacts}">
@@ -51,7 +53,7 @@
                     </c:choose>
                     <c:forEach var="position" items="${organization.positions}">
                         <jsp:useBean id="position" type="ru.webapp.model.Organization.Position"/>
-                        <strong>${position.title}</strong><br>${position.description}
+                        <%=HtmlUtil.formatDates(position)%>&nbsp;<strong>${position.title}</strong><br><br>${position.description}
                     </c:forEach>
                 </c:forEach>
             </c:when>

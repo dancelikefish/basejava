@@ -12,6 +12,10 @@ footer {
     padding: 5px 20px;
     margin: 20px 0;
 }
+section {
+    width: 900px;
+    margin: auto;
+}
 
 dl {
     background: none repeat scroll 0 0 #FAFAFA;

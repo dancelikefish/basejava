@@ -6,13 +6,11 @@ import org.junit.Test;
 import ru.webapp.Config;
 import ru.webapp.exception.ExistStorageException;
 import ru.webapp.exception.NotExistStorageException;
-import ru.webapp.model.Resume;
+import ru.webapp.model.*;
 import ru.webapp.util.ResumeTestData;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class AbstractStorageTest {
     protected Storage storage;
@@ -37,11 +35,20 @@ public class AbstractStorageTest {
     public static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
     static {
+        Map<ContactType, String> map = new HashMap<>();
+        List<Organization> list = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+        List<String> list3 = new ArrayList<>();
         ResumeTestData.fillWholeResume(R1);
-        ResumeTestData.fillWholeResume(R2);
-        ResumeTestData.fillWholeResume(R3);
-        ResumeTestData.fillWholeResume(R4);
-        ResumeTestData.fillWholeResume(R5);
+        R2.setContacts(map);
+        R3.setContacts(map);
+        R2.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(list)));
+        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list2)));
+        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list3)));
+//        ResumeTestData.fillWholeResume(R2);
+//        ResumeTestData.fillWholeResume(R3);
+//        ResumeTestData.fillWholeResume(R4);
+//        ResumeTestData.fillWholeResume(R5);
     }
 
     public AbstractStorageTest(Storage storage) {
