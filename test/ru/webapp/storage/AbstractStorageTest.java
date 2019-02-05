@@ -35,20 +35,11 @@ public class AbstractStorageTest {
     public static final List<Resume> expectedResumes = Arrays.asList(R1, R2, R3);
 
     static {
-        Map<ContactType, String> map = new HashMap<>();
-        List<Organization> list = new ArrayList<>();
-        List<String> list2 = new ArrayList<>();
-        List<String> list3 = new ArrayList<>();
         ResumeTestData.fillWholeResume(R1);
-        R2.setContacts(map);
-        R3.setContacts(map);
-        R2.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(list)));
-        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(list2)));
-        R3.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(list3)));
-//        ResumeTestData.fillWholeResume(R2);
-//        ResumeTestData.fillWholeResume(R3);
-//        ResumeTestData.fillWholeResume(R4);
-//        ResumeTestData.fillWholeResume(R5);
+        ResumeTestData.fillWholeResume(R2);
+        ResumeTestData.fillWholeResume(R3);
+        ResumeTestData.fillWholeResume(R4);
+        ResumeTestData.fillWholeResume(R5);
     }
 
     public AbstractStorageTest(Storage storage) {
