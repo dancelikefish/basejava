@@ -6,11 +6,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ResumeTestData {
-    public static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    public static List<String> achievements = new ArrayList<>();
-    public static List<String> qualifications = new ArrayList<>();
-    public static List<Organization> occupationPlaces = new ArrayList<>();
-    public static List<Organization> educationPlaces = new ArrayList<>();
 
     public static void main(String[] args) {
         Resume gKislin = new Resume("Grigoriy Kislin");
@@ -18,17 +13,18 @@ public class ResumeTestData {
     }
 
     public static void fillWholeResume(Resume resume) {
-        resume.setContacts(ResumeTestData.fillContactSection(contacts));
+        resume.setContacts(ResumeTestData.fillContactSection());
 
         resume.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
         resume.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection(achievements)));
-        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection(qualifications)));
-        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection(occupationPlaces)));
-        resume.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection(educationPlaces)));
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection()));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection()));
+        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection()));
+        resume.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection()));
     }
 
-    public static Map<ContactType, String> fillContactSection(Map<ContactType, String> contacts) {
+    public static Map<ContactType, String> fillContactSection() {
+        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
         contacts.put(ContactType.CELLPHONENUMBER, "+7(921) 855-0482");
         contacts.put(ContactType.SKYPE, "gkislin");
         contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
@@ -46,46 +42,49 @@ public class ResumeTestData {
         return "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.";
     }
 
-    public static List<String> fillAchievementSection(List<String> section) {
-        section.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
+    public static List<String> fillAchievementSection() {
+        List<String> achievements = new ArrayList<>();
+        achievements.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven." +
                 " Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\"." +
                 " Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.");
-        section.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. " +
+        achievements.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. " +
                 "Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.");
-        section.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP." +
+        achievements.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP." +
                 " Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. " +
                 "Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.");
-        section.add("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, " +
+        achievements.add("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, " +
                 "Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга.");
-        section.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish)." +
+        achievements.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish)." +
                 " Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и" +
                 " мониторинга системы по JMX (Jython/ Django).");
-        section.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
-        return section;
+        achievements.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
+        return achievements;
     }
 
-    public static List<String> fillQualificationSection(List<String> section) {
-        section.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
-        section.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
-        section.add("DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,");
-        section.add("MySQL, SQLite, MS SQL, HSQLDB");
-        section.add("Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy,");
-        section.add("XML/XSD/XSLT, SQL, C/C++, Unix shell scripts,");
-        section.add("Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security, Data, Clouds, Boot), " +
+    public static List<String> fillQualificationSection() {
+        List<String> qualifications = new ArrayList<>();
+        qualifications.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
+        qualifications.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
+        qualifications.add("DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,");
+        qualifications.add("MySQL, SQLite, MS SQL, HSQLDB");
+        qualifications.add("Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy,");
+        qualifications.add("XML/XSD/XSLT, SQL, C/C++, Unix shell scripts,");
+        qualifications.add("Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security, Data, Clouds, Boot), " +
                 "JPA (Hibernate, EclipseLink), Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons, Eclipse SWT, JUnit, Selenium (htmlelements).");
-        section.add("Python: Django.");
-        section.add("JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js");
-        section.add("Scala: SBT, Play2, Specs2, Anorm, Spray, Akka");
-        section.add("Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, XSLT, MDB, JMX, JDBC, JPA, JNDI," +
+        qualifications.add("Python: Django.");
+        qualifications.add("JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js");
+        qualifications.add("Scala: SBT, Play2, Specs2, Anorm, Spray, Akka");
+        qualifications.add("Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, XSLT, MDB, JMX, JDBC, JPA, JNDI," +
                 " JAAS, SOAP, AJAX, Commet, HTML5, ESB, CMIS, BPMN2, LDAP, OAuth1, OAuth2, JWT.");
-        section.add("Инструменты: Maven + plugin development, Gradle, настройка Ngnix,");
-        section.add("Администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.");
-        section.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
-        section.add("Родной русский, английский \"upper intermediate\"");
-        return section;
+        qualifications.add("Инструменты: Maven + plugin development, Gradle, настройка Ngnix,");
+        qualifications.add("Администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.");
+        qualifications.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
+        qualifications.add("Родной русский, английский \"upper intermediate\"");
+        return qualifications;
     }
 
-    public static List<Organization> fillExperienceSection(List<Organization> section) {
+    public static List<Organization> fillExperienceSection() {
+        List<Organization> occupationPlaces = new ArrayList<>();
         Organization.Position javaOnlineProjects = new Organization.Position("Автор проекта.", "Создание, организация и " +
                 "проведение Java онлайн проектов и стажировок", LocalDate.of(2013, 10, 1), LocalDate.now());
 
@@ -133,18 +132,19 @@ public class ResumeTestData {
         Organization e = new Organization("Enkata", "https://www.enkata.com/", enk);
         Organization a = new Organization("Alcatel", "alcatel.ru", alc);
 
-        section.add(j);
-        section.add(w);
-        section.add(r);
-        section.add(l);
-        section.add(y);
-        section.add(e);
-        section.add(a);
+        occupationPlaces.add(j);
+        occupationPlaces.add(w);
+        occupationPlaces.add(r);
+        occupationPlaces.add(l);
+        occupationPlaces.add(y);
+        occupationPlaces.add(e);
+        occupationPlaces.add(a);
 
-        return section;
+        return occupationPlaces;
     }
 
-    public static List<Organization> fillEducationSection(List<Organization> section) {
+    public static List<Organization> fillEducationSection() {
+        List<Organization> educationPlaces = new ArrayList<>();
         Organization.Position coursera = new Organization.Position("\"Functional Programming Principles in Scala\" by Martin Odersky", "",
                 LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1));
         Organization.Position luxofEdu = new Organization.Position("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", "",
@@ -180,13 +180,13 @@ public class ResumeTestData {
                 "http://www.ifmo.ru/ru/", spb);
         Organization mf = new Organization("МФТИ", "http://www.school.mipt.ru/", mft);
 
-        section.add(c);
-        section.add(lu);
-        section.add(s);
-        section.add(alcate);
-        section.add(spbN);
-        section.add(mf);
+        educationPlaces.add(c);
+        educationPlaces.add(lu);
+        educationPlaces.add(s);
+        educationPlaces.add(alcate);
+        educationPlaces.add(spbN);
+        educationPlaces.add(mf);
 
-        return section;
+        return educationPlaces;
     }
 }
