@@ -22,7 +22,7 @@
         <c:forEach var="type" items="<%=ContactType.values()%>">
             <dl>
                 <dt>${type.title}</dt>
-                <dd><input type="text" name="${type.name()}" size="30" value="${resume.getContact(type)}"></dd>
+                <dd><input type="text" name="${type.name()}" size="40" value="${resume.getContact(type)}"></dd>
             </dl>
         </c:forEach>
         <c:forEach var="sectionType" items="<%=SectionType.values()%>">
@@ -34,22 +34,30 @@
                         <input type='text' name='${sectionType}' size='120' value='${section}'/>
                     </c:when>
                     <c:when test="${sectionType.name() == 'ACHIEVEMENT' || sectionType.name() == 'QUALIFICATIONS'}">
-                        <br>​<textarea style="text-align:left; resize: none" id="txtArea" rows="23" cols="122"><%=(String.join("\n",((ListSection) section).getListSection()))%></textarea>
+                        <br>​<textarea name="${sectionType}" style="text-align:left; resize: none" id="txtArea" rows="23" cols="122"><%=(String.join("\n",((ListSection) section).getListSection()))%></textarea>
                     </c:when>
                     <c:when test="${sectionType.name() == 'EXPERIENCE' || sectionType.name() == 'EDUCATION'}">
+                        <input type="hidden" name="${sectionType}"
                         <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>">
                             <br>
-                            <strong>Организация: </strong><input type='text' name='Организация' size='105' value='${org.homePage.name}'/>
+                            <strong>Организация: </strong>
+                            <input type='text' name='name' size='105' value='${org.homePage.name}'/>
                             <br>
-                            <strong>URL Организации: </strong><input type='text' name='URL Организации' size='20' value='${org.homePage.url}'/>
+                            <strong>URL Организации: </strong>
+                            <input type='text' name='url' size='20' value='${org.homePage.url}'/>
                             <c:forEach var="position" items="${org.positions}">
                                 <jsp:useBean id="position" type="ru.webapp.model.Organization.Position"/>
-                                <strong>Позиция: </strong><input type='text' name='Позиция' size='64' value='${position.title}'/>
+                                <strong>Позиция: </strong>
+                                <input type='text' name='title' size='64' value='${position.title}'/>
                                 <br>
-                                <strong>​Описание:</strong><br><textarea style="text-align:left; resize: none" id="txtArea" rows="10" cols="122"><%=position.getDescription()%></textarea>
+                                <strong>​Описание:</strong><br>
+                                <textarea name="description" style="text-align:left; resize: none" id="txtArea" rows="10" cols="122"><%=position.getDescription()%></textarea>
                                 <br>
-                                <strong>Дата начала: </strong><input type='text' name='Дата начала' size='20' value='${position.startDate}'/>
-                                <strong>Дата окончания: </strong><input type='text' name='Дата конца' size='20' value='${position.finishDate}'/>
+                                <strong>Дата начала: </strong>
+                                <input type='text' name='startDate' size='20' value='${position.startDate}'/>
+                                <strong>Дата окончания: </strong>
+                                <input type='text' name='endDate' size='20' value='${position.finishDate}'/>
+                                <br>
                                 <br>
                                 <br>
                             </c:forEach>
