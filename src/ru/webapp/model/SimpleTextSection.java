@@ -5,6 +5,7 @@ import java.util.Objects;
 public class SimpleTextSection extends Section {
     private static final long serialVersionUID = 1L;
     private String textSection;
+    public static final SimpleTextSection EMPTY = new SimpleTextSection("");
 
     public String getTextSection() {
         return textSection;

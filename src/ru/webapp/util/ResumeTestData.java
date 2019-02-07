@@ -15,12 +15,12 @@ public class ResumeTestData {
     public static void fillWholeResume(Resume resume) {
         resume.setContacts(ResumeTestData.fillContactSection());
 
-        resume.addSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
-        resume.addSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
-        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection()));
-        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection()));
-        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection()));
-        resume.addSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection()));
+        resume.setSection(SectionType.PERSONAL, new SimpleTextSection(ResumeTestData.fillPersonalSection()));
+        resume.setSection(SectionType.OBJECTIVE, new SimpleTextSection(ResumeTestData.fillPositionSection()));
+        resume.setSection(SectionType.ACHIEVEMENT, new ListSection(ResumeTestData.fillAchievementSection()));
+        resume.setSection(SectionType.QUALIFICATIONS, new ListSection(ResumeTestData.fillQualificationSection()));
+        resume.setSection(SectionType.EXPERIENCE, new OrganizationSection(ResumeTestData.fillExperienceSection()));
+        resume.setSection(SectionType.EDUCATION, new OrganizationSection(ResumeTestData.fillEducationSection()));
     }
 
     public static Map<ContactType, String> fillContactSection() {
@@ -131,7 +131,6 @@ public class ResumeTestData {
         Organization y = new Organization("Yota", "https://www.yota.ru/", yot);
         Organization e = new Organization("Enkata", "https://www.enkata.com/", enk);
         Organization a = new Organization("Alcatel", "alcatel.ru", alc);
-
         occupationPlaces.add(j);
         occupationPlaces.add(w);
         occupationPlaces.add(r);

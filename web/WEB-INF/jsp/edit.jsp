@@ -1,4 +1,5 @@
 <%@ page import="ru.webapp.model.*" %>
+<%@ page import="ru.webapp.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -37,26 +38,25 @@
                         <br>​<textarea name="${sectionType}" style="text-align:left; resize: none" id="txtArea" rows="23" cols="122"><%=(String.join("\n",((ListSection) section).getListSection()))%></textarea>
                     </c:when>
                     <c:when test="${sectionType.name() == 'EXPERIENCE' || sectionType.name() == 'EDUCATION'}">
-                        <input type="hidden" name="${sectionType}"
-                        <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>">
+                        <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>" varStatus="counter">
                             <br>
                             <strong>Организация: </strong>
-                            <input type='text' name='name' size='105' value='${org.homePage.name}'/>
+                            <input type='text' name='${sectionType}' size='105' value='${org.homePage.name}'/>
                             <br>
                             <strong>URL Организации: </strong>
-                            <input type='text' name='url' size='20' value='${org.homePage.url}'/>
+                            <input type='text' name='${sectionType}url' size='20' value='${org.homePage.url}'/>
                             <c:forEach var="position" items="${org.positions}">
                                 <jsp:useBean id="position" type="ru.webapp.model.Organization.Position"/>
                                 <strong>Позиция: </strong>
-                                <input type='text' name='title' size='64' value='${position.title}'/>
+                                <input type='text' name='${sectionType}${counter.index}title' size='64' value='${position.title}'/>
                                 <br>
                                 <strong>​Описание:</strong><br>
-                                <textarea name="description" style="text-align:left; resize: none" id="txtArea" rows="10" cols="122"><%=position.getDescription()%></textarea>
+                                <textarea name="${sectionType}${counter.index}description" style="text-align:left; resize: none" id="txtArea" rows="10" cols="122"><%=position.getDescription()%></textarea>
                                 <br>
                                 <strong>Дата начала: </strong>
-                                <input type='text' name='startDate' size='20' value='${position.startDate}'/>
+                                <input type='text' name='${sectionType}${counter.index}startDate' size='20' value='<%=HtmlUtil.formatDate(position.getStartDate())%>'/>
                                 <strong>Дата окончания: </strong>
-                                <input type='text' name='endDate' size='20' value='${position.finishDate}'/>
+                                <input type='text' name='${sectionType}${counter.index}endDate' size='20' value='<%=HtmlUtil.formatDate(position.getFinishDate())%>'/>
                                 <br>
                                 <br>
                                 <br>

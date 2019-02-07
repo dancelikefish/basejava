@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,14 +19,25 @@ public class Organization extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
     private Link homePage;
     private List<Position> positions;
+    public static final Organization EMPTY = new Organization("", "", Position.EMPTY);
 
     public Organization() {
+    }
+
+    public Organization(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
+        this.positions = positions;
     }
 
     public Organization(String name, String url, List<Position> positions) {
         this.homePage = new Link(name, url);
         this.positions = positions;
     }
+
+    public Organization(String name, String url, Position... positions) {
+        this(new Link(name, url), Arrays.asList(positions));
+    }
+
 
     public Link getHomePage() {
         return homePage;
@@ -58,6 +70,7 @@ public class Organization extends Section implements Serializable {
         private static final long serialVersionUID = 1L;
         private String title;
         private String description;
+        public static final Position EMPTY = new Position();
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
