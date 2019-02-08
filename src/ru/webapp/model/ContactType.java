@@ -6,18 +6,33 @@ public enum ContactType {
     SKYPE("Skype: ") {
         @Override
         public String toHtml0(String value) {
-            return "<a href='skype: "+ value + "'>" + value + "</a>";
+            return "<img src=\"img/skype.png\"><a href='skype: "+ value + "'>" + value + "</a>";
         }
     },
     MAIL("Почта: ") {
         @Override
         public String toHtml0(String value) {
-            return "<a href='mailto: "+ value + "'>" + value + "</a>";
+            return "<img src=\"img/email.png\"><a href='mailto: "+ value + "'>" + value + "</a>";
         }
     },
-    LINKEDIN("LinkedIn: "),
-    GITHUB("GitHub: "),
-    STACKOVERFLOW("StackOverflow: "),
+    LINKEDIN("LinkedIn: ") {
+        @Override
+        public String toHtml0(String value) {
+            return "<img src=\"img/lin.png\"><a href='linkedIn: "+ value + "'>" + value + "</a>";
+        }
+    },
+    GITHUB("GitHub: ") {
+        @Override
+        public String toHtml0(String value) {
+            return "<img src=\"img/gh.png\"><a href='gitHub: "+ value + "'>" + value + "</a>";
+        }
+    },
+    STACKOVERFLOW("StackOverflow: ") {
+        @Override
+        public String toHtml0(String value) {
+            return "<img src=\"img/so.png\"><a href='stackOverflow: "+ value + "'>" + value + "</a>";
+        }
+    },
     HOMEPAGE("Домашняя страница");
 
     private String title;

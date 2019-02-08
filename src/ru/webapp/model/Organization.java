@@ -47,6 +47,14 @@ public class Organization extends Section implements Serializable {
         return positions;
     }
 
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
+    }
+
+    public void setHomePage(Link homePage) {
+        this.homePage = homePage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,6 +119,22 @@ public class Organization extends Section implements Serializable {
 
         public LocalDate getFinishDate() {
             return finishDate;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public void setFinishDate(LocalDate finishDate) {
+            this.finishDate = finishDate;
         }
 
         @Override
